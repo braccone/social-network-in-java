@@ -1,0 +1,286 @@
+*{
+	font-family: Arial,Helvetica,Sans-serif;
+	font-size: 12px;
+	margin: 0Px;
+	
+	/*background-repeat: no-repeat;*/
+
+}
+
+.HeaderMenu{
+	background-color: #333;
+	padding-left: auto;
+	padding-right: auto;
+	height: 43px;
+	border-bottom: 0px;
+	width: 100%;
+	position: fixed;
+	
+}
+.tutto{
+	background-image: url("../img/hold-fast.gif");
+}
+
+#menu{
+	padding-left: 30px;
+}
+#menu ul {
+    position: fixed;
+    top: 0;
+    width: 500px;
+}
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+#menu li {
+    float: left;
+}
+
+#menu li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+#menu li a:hover {
+    background-color: #111;
+}
+
+#SearchContainer {
+	width: 340px;
+	height: 34px;
+	padding-left: 600px;
+	background-color: #333;
+	padding-top: 4px;
+	background-position: left top;
+
+}
+#SearchForm {
+	background-color: #333;
+}
+#sb {
+	background-image: url("../img/BarraRicerca.png");
+	background-repeat: no-repeat;
+	border: none;
+	height: 32px;
+	width: 244px;
+	outline: none;
+	background-color: transparent;
+	color: #CCC;
+	padding-right: 7px;
+	padding-left: 6px;
+	font-size: 14px;
+}
+#SearchBox {
+	float: left; 
+	width: 244px;
+}
+#SearchBtn {
+	float: left;
+	width: 34px;
+}
+.Sign {
+	width: 800px; 
+	margin: 0px auto 0px auto;
+	padding: 50px;
+}
+
+.Sign h2 {
+	font-family: Arial,Helvetica,Sans-serif;
+	font-size: 20px;
+	padding: 8px;
+	color: #0084C6;
+}
+.Sign input[type="text"]{
+	background-color: #FFFFFF;
+	border: 1px solid #bbbbbb; /* era #E2E2E2*/
+	font-size: 15px;
+	padding: 5px;
+	width: 300px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+.Sign input[type="text"]:hover{
+	background-color: #FFFFFF;
+	border: 1px solid #006FC4;
+	font-size: 15px;
+	padding: 5px;
+	width: 300px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+.Sign input[type="password"]{
+	background-color: #FFFFFF;
+	border: 1px solid #bbbbbb; /* era #E2E2E2*/
+	font-size: 15px;
+	padding: 5px;
+	width: 300px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+.Sign input[type="password"]:hover{
+	background-color: #FFFFFF;
+	border: 1px solid #006FC4;
+	font-size: 15px;
+	padding: 5px;
+	width: 300px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+.Sign input[type="button"]{
+	background-color: #006FC4;
+	border: 1px solid #00508d;
+	font-size: 15px;
+	color: #FFFFFF;
+	padding: 5px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	border-radius: 7px;
+}
+.Sign input[type="submit"]{
+	background-color: #006FC4;
+	border: 1px solid #00508d;
+	font-size: 15px;
+	color: #FFFFFF;
+	padding: 5px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	border-radius: 7px;
+}
+.Domanda{
+	background-color: white;
+	padding:5px;
+	height: auto;
+	width: 520px;
+	margin-left: 200px;
+}
+.Domanda input[type="text"]{
+	background-color: #FFFFFF;
+	border: 1px solid #bbbbbb; /* era #E2E2E2*/
+	font-size: 15px;
+	padding: 5px;
+	width: 500px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+.Domanda input[type="text"]:hover{
+	background-color: #FFFFFF;
+	border: 1px solid #006FC4;
+	font-size: 15px;
+	padding: 5px;
+	width: 500px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+.Domanda textarea{
+	background-color: #FFFFFF;
+	border: 1px solid #bbbbbb; /* era #E2E2E2*/
+	font-size: 15px;
+	padding: 5px;
+	width: 500px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+.Domanda textarea:hover{
+	background-color: #FFFFFF;
+	border: 1px solid #006FC4;
+	font-size: 15px;
+	padding: 5px;
+	width: 500px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+}
+
+.Domanda input[type="button"]{ /*appena creata*/
+	background-color: #006FC4;
+	border: 1px solid #00508d;
+	font-size: 25px; /*era 15px*/
+	color: #FFFFFF;
+	padding: 5px;
+	margin-bottom: 7px; /*era 3px*/
+	margin-top: 7px; /*era 3px*/
+	margin-left: 200px; /*non c'era*/
+	border-radius: 7px;
+	
+}
+
+#interessi{
+	overflow: auto;
+	max-height: 200px;
+	font-size: 15px;
+	width:500px;
+	border:1px ridge #bbbbbb; /* era #E2E2E2*/
+	padding: 5px;
+	/*display: inline-block; /*non c'era*/
+}
+#interessi:hover{
+	overflow: auto;
+	max-height: 200px;
+	width:500px;
+	border: 1px ridge #006FC4;
+	padding: 5px;
+
+}
+#interessi label{
+	font-size: 15px;
+}
+
+.DomandePoste{
+	background-color: white;
+	margin-top: 30px;
+	height: auto;
+	margin-left: 200px;
+	width: 500px;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+#Domande {
+	padding: 5px;
+	margin-bottom: 20px;
+	font-size: 14px;
+	width: 500px;
+	border: 1px ridge #bbbbbb; /* era #E2E2E2*/
+	height: auto; /*height non c'era per niente*/
+}
+#Domande:hover {
+	padding: 5px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	width: 500px;
+	border: 1px ridge #006FC4;
+}
+
+#data{
+	margin-top: 50px;
+	border: 1px solid #bbbbbb; /* era #E2E2E2*/
+	padding: 5px;
+	width: 500px;
+	padding: none;
+	border-bottom-color: transparent /*prima non c'era, toglie il bordo di sotto*/
+}
+
+#Domande h2{
+	font-size: 18px;
+}
+#Domande i{
+	font-size: 14px;
+}
+#Domande a {
+	margin-top: 5px;
+	font-size: 18px;
+	color: blue;
+    text-decoration: none;
+}
+#Domande a:hover {
+	margin-top: 5px;
+	font-size: 18px;
+	color: rgb(28,127,226);
+    text-decoration: underline;
+}
