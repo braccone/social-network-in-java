@@ -4,7 +4,7 @@
 	
 		<title>LikeQuora</title>
 		
-		<link rel="stylesheet" type="text/css" href="./css/stile.css">
+		<link rel="stylesheet" type="text/css" href="./css/PaginaLogin.css">
 		<script type="text/javascript" src="./js/Controllo.js"></script>
 		<noscript>
 			<meta http-equiv=refresh content="0; url=https://www.google.it">
@@ -36,6 +36,5 @@
 			</td>
 		</tr>
 	</table>
-</div>
 </div>
 <%@include file="./include/Footer.jsp" %>

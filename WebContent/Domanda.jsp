@@ -20,6 +20,7 @@
 		}
 	%>
 	<div class="Domanda">
+	<h1>Fai una domanda</h1>
 		<div id="titolo">
 			<form name="faidomanda" method="post">
 				<input type="text" placeholder="Inserisci il titolo" name="titolo"><br>
@@ -41,7 +42,9 @@
 			</form>
 		</div>
 	</div>
+
 	<div class="DomandePoste">
+		<h1>Le tue domande</h1>
 		<%
 		rs = Utente.getUtente(user);
 		int id_domandante = 0;
@@ -52,12 +55,12 @@
 		rs = DomandaUtente.getDomande(id_domandante);
 		while(rs.next()){
 		%>
-		<div id="data">
-			<%=rs.getDate("data") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ora:&nbsp;<%=rs.getTime("ora") %>
-		</div>
+		
 		<div id="Domande">
-			
-			<a href="#"><h2><%=rs.getString("titolo")%></h2></a>
+			<div id="data">
+				<%=rs.getDate("data") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ora:&nbsp;<%=rs.getTime("ora") %>
+			</div>
+			<h2><a href="#"><%=rs.getString("titolo")%></a></h2>
 			
 			<%
 				String descrizione=rs.getString("descrizione");

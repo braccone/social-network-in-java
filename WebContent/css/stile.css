@@ -2,9 +2,11 @@
 	font-family: Arial,Helvetica,Sans-serif;
 	font-size: 12px;
 	margin: 0Px;
-	
 	/*background-repeat: no-repeat;*/
 
+}
+.tutto{
+	background-color: gray;
 }
 
 .HeaderMenu{
@@ -17,10 +19,6 @@
 	position: fixed;
 	
 }
-.tutto{
-	background-image: url("../img/hold-fast.gif");
-}
-
 #menu{
 	padding-left: 30px;
 }
@@ -85,80 +83,18 @@
 	float: left;
 	width: 34px;
 }
-.Sign {
-	width: 800px; 
-	margin: 0px auto 0px auto;
-	padding: 50px;
-}
 
-.Sign h2 {
-	font-family: Arial,Helvetica,Sans-serif;
-	font-size: 20px;
-	padding: 8px;
-	color: #0084C6;
-}
-.Sign input[type="text"]{
-	background-color: #FFFFFF;
-	border: 1px solid #bbbbbb; /* era #E2E2E2*/
-	font-size: 15px;
-	padding: 5px;
-	width: 300px;
-	margin-bottom: 3px;
-	margin-top: 3px;
-}
-.Sign input[type="text"]:hover{
-	background-color: #FFFFFF;
-	border: 1px solid #006FC4;
-	font-size: 15px;
-	padding: 5px;
-	width: 300px;
-	margin-bottom: 3px;
-	margin-top: 3px;
-}
-.Sign input[type="password"]{
-	background-color: #FFFFFF;
-	border: 1px solid #bbbbbb; /* era #E2E2E2*/
-	font-size: 15px;
-	padding: 5px;
-	width: 300px;
-	margin-bottom: 3px;
-	margin-top: 3px;
-}
-.Sign input[type="password"]:hover{
-	background-color: #FFFFFF;
-	border: 1px solid #006FC4;
-	font-size: 15px;
-	padding: 5px;
-	width: 300px;
-	margin-bottom: 3px;
-	margin-top: 3px;
-}
-.Sign input[type="button"]{
-	background-color: #006FC4;
-	border: 1px solid #00508d;
-	font-size: 15px;
-	color: #FFFFFF;
-	padding: 5px;
-	margin-bottom: 3px;
-	margin-top: 3px;
-	border-radius: 7px;
-}
-.Sign input[type="submit"]{
-	background-color: #006FC4;
-	border: 1px solid #00508d;
-	font-size: 15px;
-	color: #FFFFFF;
-	padding: 5px;
-	margin-bottom: 3px;
-	margin-top: 3px;
-	border-radius: 7px;
-}
 .Domanda{
 	background-color: white;
 	padding:5px;
 	height: auto;
 	width: 520px;
 	margin-left: 200px;
+}
+.Domanda h1{
+	font-size: 20px;
+	margin-left: 33%;
+	margin-right: 33%;
 }
 .Domanda input[type="text"]{
 	background-color: #FFFFFF;
@@ -236,34 +172,37 @@
 	margin-top: 30px;
 	height: auto;
 	margin-left: 200px;
-	width: 500px;
-	padding-right: 5px;
-	padding-left: 5px;
-}
-
-#Domande {
+	width: 520px;
 	padding: 5px;
-	margin-bottom: 20px;
+}
+.DomandePoste h1{
+	font-size: 20px;
+	margin-left: 33%;
+	margin-right: 33%;
+}
+#Domande {
+	margin-bottom: 40px;
 	font-size: 14px;
 	width: 500px;
 	border: 1px ridge #bbbbbb; /* era #E2E2E2*/
 	height: auto; /*height non c'era per niente*/
+	padding: 5px;
 }
 #Domande:hover {
-	padding: 5px;
-	margin-bottom: 10px;
+	margin-bottom: 40px;
 	font-size: 14px;
 	width: 500px;
 	border: 1px ridge #006FC4;
 }
 
 #data{
-	margin-top: 50px;
-	border: 1px solid #bbbbbb; /* era #E2E2E2*/
 	padding: 5px;
-	width: 500px;
-	padding: none;
-	border-bottom-color: transparent /*prima non c'era, toglie il bordo di sotto*/
+	border: 1px solid #bbbbbb; /* era #E2E2E2*/
+	width: 490px;
+	margin-bottom: 5px;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent; /*prima non c'era, toglie il bordo di sotto*/
 }
 
 #Domande h2{
