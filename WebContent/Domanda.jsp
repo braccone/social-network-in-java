@@ -60,7 +60,7 @@
 			<div id="data">
 				<%=rs.getDate("data") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ora:&nbsp;<%=rs.getTime("ora") %>
 			</div>
-			<h2><a href="#"><%=rs.getString("titolo")%></a></h2>
+			<h2><a href="Risposta.jsp?id=<%=rs.getInt("id_domanda")%>"><%=rs.getString("titolo")%></a></h2>
 			
 			<%
 				String descrizione=rs.getString("descrizione");

@@ -6,14 +6,14 @@
 		<script type="text/javascript" src="./js/Controllo.js">
 		</script>
 		<noscript>
-	    <style type="text/css">
-	        .tutto {display:none;}
-	    </style>
-	    <meta http-equiv=refresh content="2; url=http://www.miosito.com">
-	    <div class="noscriptmsg">
-	    You don't have javascript enabled.  Good luck with that.
-	    </div>
-</noscript>
+		    <style type="text/css">
+		        .tutto {display:none;}
+		    </style>
+		    <meta http-equiv=refresh content="2; url=http://www.miosito.com">
+		    <div class="noscriptmsg">
+		    You don't have javascript enabled.  Good luck with that.
+		    </div>
+		</noscript>
 	</head>
 	<body>
 	<div class="tutto">
