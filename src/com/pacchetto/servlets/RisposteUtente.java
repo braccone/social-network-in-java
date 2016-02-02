@@ -12,6 +12,9 @@ public class RisposteUtente {
 	//Query che ricerca le risposte ad una determinata domanda
 	static String get_rispostedomanda="SELECT risp.* FROM risposta AS risp, domanda AS dm WHERE risp.id_risposta = dm.id_domanda AND dm.id_domanda=?";
 	
+	//Query che inserisce la risposta nel database
+	static String insert_risposta="INSERT INTO risposta VALUES(0,?,?,?,?,false,?)";
+	
 	//metodi
 	public static ResultSet getRisposteUtente(int id_domandante){
 		try {
@@ -28,11 +31,11 @@ public class RisposteUtente {
 			}
 	}
 	
-	public static ResultSet getRisposteDomande(int id_domanda){
+	public static ResultSet getRisposteDomande(String id_domanda){
 		try {
 			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_rispostedomanda);
-			ps.setInt(1, id_domanda);
+			ps.setString(1, id_domanda);
 			ResultSet rs = ps.executeQuery();
 			return rs;
 			
@@ -40,6 +43,25 @@ public class RisposteUtente {
 			
 				e.printStackTrace();
 				return null;
+			}
+	}
+	
+	public static int insertRisposta(String id_domanda,int id_utente,String testo,String data,String ora){
+		try {
+			Connection conn= Connessione.getConnection();
+			PreparedStatement ps = conn.prepareStatement(insert_risposta);
+			ps.setString(1, id_domanda);
+			ps.setInt(2, id_utente);
+			ps.setString(3, testo);
+			ps.setString(4, data);
+			ps.setString(5, ora);
+			int i = ps.executeUpdate();
+			return i;
+			
+			}catch (Exception e) {
+			
+				e.printStackTrace();
+				return 0;
 			}
 	}
 }

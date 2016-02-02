@@ -24,7 +24,7 @@
 		<%
 		ResultSet rs;
 		String id_domanda = request.getParameter("id");
-		rs = DomandaUtente.getDomanda(Integer.parseInt(id_domanda));
+		rs = DomandaUtente.getDomanda(id_domanda);
 		while(rs.next()){
 		%>
 		
@@ -59,16 +59,17 @@
 		<div id="risposte">
 		<%
 		
-			rs = RisposteUtente.getRisposteDomande(Integer.parseInt(id_domanda));
+			rs = RisposteUtente.getRisposteDomande(id_domanda);
 			while(rs.next()){
 		%>
 		<p><%=rs.getString("testo") %></p>
 		<%} %>
 		</div>
 		<div id="FaiRisposta">
-		<form method="post" action="#">
-			<textarea rows="7" cols="50"></textarea><br>
-			<input type="button" value="RISPONDI" name="btn_risposta">
+		<form method="post" action="Risposta">
+			<textarea rows="7" cols="50" name="risposta"></textarea><br>
+			<input type="submit" value="RISPONDI" name="btn_risposta">
+			<input type="hidden" name="prova" value="<%=id_domanda %>">
 		</form>
 		</div>
 	</div>

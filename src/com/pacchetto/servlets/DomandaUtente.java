@@ -39,11 +39,11 @@ public class DomandaUtente {
 			}
 	}
 	
-	public static ResultSet getDomanda(int id_domanda){
+	public static ResultSet getDomanda(String id_domanda){
 		try {
 			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_domanda);
-			ps.setInt(1, id_domanda);
+			ps.setString(1, id_domanda);
 			ResultSet rs = ps.executeQuery();
 			return rs;
 			
