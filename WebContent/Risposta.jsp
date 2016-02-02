@@ -19,16 +19,57 @@
 			}
 		}
 	%>
-	<%
+	<div class="DomandePoste">
+		<h1 style="color: blue;font-size: 22px;">La tua domanda</h1>
+		<%
+		ResultSet rs;
 		String id_domanda = request.getParameter("id");
-	
-		ResultSet rs = RisposteUtente.getRisposteDomande(Integer.parseInt(id_domanda));
+		rs = DomandaUtente.getDomanda(Integer.parseInt(id_domanda));
 		while(rs.next()){
-	%>
-	<p><%=rs.getString("testo") %></p>
-	<%} %>
-	<form method="post" action="#">
-		<textarea rows="7" cols="50"></textarea><br>
-		<input type="button" value="RISPONDI" name="btn_risposta">
-	</form>
+		%>
+		
+		<div id="Domande">
+			<div id="data">
+				<%=rs.getDate("data") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ora:&nbsp;<%=rs.getTime("ora") %>
+			</div>
+			<h2><%=rs.getString("titolo")%></h2>
+			
+			<%
+				String descrizione=rs.getString("descrizione");
+			//nel caso in cui non sia presente alcuna descrizione per la domanda scrive "nessuna descrizione."
+				if(rs.getString("descrizione").length()<=1){
+			%>
+			<i>nessuna descrizione.</i><br><br>
+			<%
+				}
+				else{
+			%>
+			<%=descrizione%><br><br>
+			<% 
+				}
+			%>
+			
+		<!-- pubblicato il <%=rs.getDate("data") %> alle <%=rs.getTime("ora") %>  -->
+		</div>
+		<%
+		}
+		%>
+	</div>
+	<div class="Risposte">
+		<div id="risposte">
+		<%
+		
+			rs = RisposteUtente.getRisposteDomande(Integer.parseInt(id_domanda));
+			while(rs.next()){
+		%>
+		<p><%=rs.getString("testo") %></p>
+		<%} %>
+		</div>
+		<div id="FaiRisposta">
+		<form method="post" action="#">
+			<textarea rows="7" cols="50"></textarea><br>
+			<input type="button" value="RISPONDI" name="btn_risposta">
+		</form>
+		</div>
+	</div>
 <%@include file="./include/Footer.jsp" %>

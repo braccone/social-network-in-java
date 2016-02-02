@@ -9,6 +9,9 @@ public class DomandaUtente {
 	//Query che ricerca le domande fatte dall'utente
 	static String get_domande="SELECT * FROM domanda WHERE id_domandante =? ORDER BY data DESC,ora DESC";
 	
+	//Query che ristituisce la domanda per id domanda
+	static String get_domanda="SELECT * FROM domanda WHERE id_domanda =?";
+	
 	//Query che ricerca le domande che hanno almeno un interesse in comune a quelli seguiti dall'utente e le ordina in base alla data in maniera decrescente
 	 static String get_domandeInteressiP="SELECT dm.* FROM domanda AS dm,interesse_domanda AS ixd,interesse AS itr,interesse_utenti AS ixp, utenti AS ut WHERE ixp.id_persona=ut.id AND ixp.id_interesse=itr.id_interesse AND itr.id_interesse = ixd.id_interesse AND ixd.id_domanda=dm.id_domanda AND ut.id=? ORDER BY dm.data DESC";
 	
@@ -35,6 +38,22 @@ public class DomandaUtente {
 				return null;
 			}
 	}
+	
+	public static ResultSet getDomanda(int id_domanda){
+		try {
+			Connection conn= Connessione.getConnection();
+			PreparedStatement ps = conn.prepareStatement(get_domanda);
+			ps.setInt(1, id_domanda);
+			ResultSet rs = ps.executeQuery();
+			return rs;
+			
+			}catch (Exception e) {
+			
+				e.printStackTrace();
+				return null;
+			}
+	}
+	
 	
 	public static ResultSet getIdDomanda(String titolo){
 		try {
