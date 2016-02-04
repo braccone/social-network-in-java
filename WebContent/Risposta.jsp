@@ -58,14 +58,23 @@
 	<div class="Risposte">
 		
 		<%
-			
+			ResultSet rs_utente;
 			rs = RisposteUtente.getRisposteDomande(id_domanda);
 			while(rs.next()){
 		%>
 		<div id="risposta">
+			<%
+				rs_utente=RisposteUtente.getUtente(rs.getInt("id_rispondente"));
+				rs_utente.next();	
+			%>
+			<%=rs_utente.getString("username") %>
+			<% rs_utente.close(); %>
 			<p><%=rs.getString("testo") %></p>
 		</div>
-		<%} %>
+		<%
+			}
+			rs.close();
+		%>
 	
 		<div id="FaiRisposta">
 		<form method="post" action="Risposta">

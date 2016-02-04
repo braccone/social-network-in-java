@@ -2,6 +2,8 @@ package com.pacchetto.servlets;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.mysql.jdbc.Connection;
 
 public class RisposteUtente {
@@ -15,6 +17,8 @@ public class RisposteUtente {
 	//Query che inserisce la risposta nel database
 	static String insert_risposta="INSERT INTO risposta VALUES(0,?,?,?,?,false,?)";
 	
+	//Query che ritorna i dati dell'utente che ha risposto ad una domanda
+	static String get_utente="SELECT ut.* FROM utenti as ut,risposta as ri WHERE ut.id = ri.id_rispondente and ri.id_rispondente=?";
 	//metodi
 	public static ResultSet getRisposteUtente(int id_domandante){
 		try {
@@ -64,4 +68,20 @@ public class RisposteUtente {
 				return 0;
 			}
 	}
+	
+	public static ResultSet getUtente(int id_utente){
+		Connection conn;
+		try {
+			conn = Connessione.getConnection();
+			PreparedStatement ps = conn.prepareStatement(get_utente);
+			ps.setInt(1, id_utente);
+			ResultSet rs=ps.executeQuery();
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 }
