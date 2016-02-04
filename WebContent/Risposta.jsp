@@ -56,15 +56,17 @@
 		%>
 	</div>
 	<div class="Risposte">
-		<div id="risposte">
-		<%
 		
+		<%
+			
 			rs = RisposteUtente.getRisposteDomande(id_domanda);
 			while(rs.next()){
 		%>
-		<p><%=rs.getString("testo") %></p>
-		<%} %>
+		<div id="risposta">
+			<p><%=rs.getString("testo") %></p>
 		</div>
+		<%} %>
+	
 		<div id="FaiRisposta">
 		<form method="post" action="Risposta">
 			<textarea rows="7" cols="50" name="risposta"></textarea><br>

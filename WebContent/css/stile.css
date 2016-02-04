@@ -29,8 +29,8 @@
 }
 #menu ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     overflow: hidden;
     background-color: #333;
 }
@@ -89,7 +89,7 @@
 	padding:5px;
 	height: auto;
 	width: 520px;
-	margin-left: 200px;
+	margin-left: 171px;
 }
 .Domanda h1{
 	font-size: 20px;
@@ -166,12 +166,19 @@
 #interessi label{
 	font-size: 15px;
 }
+.DomandaTutto{
+	background-color: white;
+	height:auto;
+	width: 863px;
+	margin-left: 17%;
+	margin-top: -27px;
+}
 
 .DomandePoste{
 	background-color: white;
 	margin-top: 30px;
 	height: auto;
-	margin-left: 200px;
+	margin-left: 171px;
 	width: 520px;
 	padding: 5px;
 }
@@ -187,11 +194,9 @@
 	border: 1px ridge #bbbbbb; /* era #E2E2E2*/
 	height: auto; /*height non c'era per niente*/
 	padding: 5px;
+	word-break: break-word;
 }
 #Domande:hover {
-	margin-bottom: 40px;
-	font-size: 14px;
-	width: 500px;
 	border: 1px ridge #006FC4;
 }
 
@@ -231,7 +236,7 @@
 	width: 520px;
 	padding: 5px;
 }
-#risposte{
+#risposta{
 	margin-bottom: 40px;
 	font-size: 14px;
 	width: 500px;
@@ -239,10 +244,7 @@
 	height: auto; /*height non c'era per niente*/
 	padding: 5px;
 }
-#risposte:hover {
-	margin-bottom: 40px;
-	font-size: 14px;
-	width: 500px;
+#risposta:hover {
 	border: 1px ridge #006FC4;
 }
 

@@ -10,7 +10,7 @@ public class RisposteUtente {
 	static String get_risposte="SELECT risp.* FROM risposta AS risp, utenti AS ut WHERE risp.id_rispondente=ut.id AND ut.id=? ORDER BY data DESC";
 	
 	//Query che ricerca le risposte ad una determinata domanda
-	static String get_rispostedomanda="SELECT risp.* FROM risposta AS risp, domanda AS dm WHERE risp.id_risposta = dm.id_domanda AND dm.id_domanda=?";
+	static String get_rispostedomanda="SELECT risp.* FROM risposta AS risp, domanda AS dm WHERE risp.id_domanda = dm.id_domanda AND dm.id_domanda=?";
 	
 	//Query che inserisce la risposta nel database
 	static String insert_risposta="INSERT INTO risposta VALUES(0,?,?,?,?,false,?)";
