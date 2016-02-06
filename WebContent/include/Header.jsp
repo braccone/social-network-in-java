@@ -20,7 +20,7 @@
 		<div class="HeaderMenu">
 			<div id="menu">
 				<ul>
-			  		<li><a href="#">Home</a></li>
+			  		<li><a href="Home.jsp">Home</a></li>
 			  		<li><a href="Domanda.jsp">Fai una domanda</a></li>
 			  		<li><a href="#">Messaggi</a></li>
 			  		<li><a href="#">Amici</a></li>
