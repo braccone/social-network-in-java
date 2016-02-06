@@ -5,7 +5,7 @@
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
 	<%
 		//allow access only if session exists
-		String utente = request.getParameter("u");
+		/*String utente = request.getParameter("u");
 		String user = null;
 		if(session.getAttribute("user") == null){
 			response.sendRedirect("Index.jsp");
@@ -17,7 +17,7 @@
 					response.sendRedirect("Index.jsp");
 				}
 			}
-		}
+		}*/
 	%>
 	<div class="DomandePoste">
 		<h1 style="color: blue;font-size: 22px;">La tua domanda</h1>
