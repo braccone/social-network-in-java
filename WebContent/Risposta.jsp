@@ -5,7 +5,7 @@
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
 	<%
 		//allow access only if session exists
-		String utente = request.getParameter("u");
+		/*String utente = request.getParameter("u");
 		String user = null;
 		if(session.getAttribute("user") == null){
 			response.sendRedirect("Index.jsp");
@@ -17,7 +17,7 @@
 					response.sendRedirect("Index.jsp");
 				}
 			}
-		}
+		}*/
 	%>
 	<div class="DomandePoste">
 		<h1 style="color: blue;font-size: 22px;">La tua domanda</h1>
@@ -58,14 +58,23 @@
 	<div class="Risposte">
 		
 		<%
-			
+			ResultSet rs_utente;
 			rs = RisposteUtente.getRisposteDomande(id_domanda);
 			while(rs.next()){
 		%>
 		<div id="risposta">
+			<%
+				rs_utente=RisposteUtente.getUtente(rs.getInt("id_rispondente"));
+				rs_utente.next();	
+			%>
+			<%=rs_utente.getString("username") %>
+			<% rs_utente.close(); %>
 			<p><%=rs.getString("testo") %></p>
 		</div>
-		<%} %>
+		<%
+			}
+			rs.close();
+		%>
 	
 		<div id="FaiRisposta">
 		<form method="post" action="Risposta">

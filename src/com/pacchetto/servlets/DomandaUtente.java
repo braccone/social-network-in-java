@@ -22,7 +22,23 @@ public class DomandaUtente {
 	 static String insert_domanda="INSERT INTO domanda VALUES (0,?,?,?,?,0,?)";
 	 
 	 static String get_iddomanda="SELECT id_domanda FROM domanda WHERE titolo=?";
+	 //prova prende tutte le domand
+	 static String get_tutto="SELECT * FROM domanda as dom,utenti as ut WHERE dom.id_domandante=ut.id ORDER BY data DESC,ora DESC";
 	 
+	 public static ResultSet getTutto(){
+		 try {
+				Connection conn= Connessione.getConnection();
+				PreparedStatement ps = conn.prepareStatement(get_tutto);
+				ResultSet rs = ps.executeQuery();
+				return rs;
+				
+				}catch (Exception e) {
+				
+					e.printStackTrace();
+					return null;
+				}
+	 }
+	 //fine prova
 	//metodi
 	public static ResultSet getDomande(int id_domandante){
 		try {

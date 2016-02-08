@@ -1,10 +1,10 @@
 <%@include file="./include/Header.jsp" %>
 		<%
 			//allow access only if session exists
-			String user = null;
+			/*String user = null;
 			if(session.getAttribute("user") == null){
 				response.sendRedirect("Index.jsp");
-			}else user = (String) session.getAttribute("user");
+			}else user = (String) session.getAttribute("user");*/
 			String userName = null;
 			String sessionID = null;
 			Cookie[] cookies = request.getCookies();

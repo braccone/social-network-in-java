@@ -16,15 +16,30 @@
 		</noscript>
 	</head>
 	<body>
+	<%
+		//allow access only if session exists
+		String utente = request.getParameter("u");
+		String user = null;
+		if(session.getAttribute("user") == null){
+			response.sendRedirect("Index.jsp");
+		}
+		else{ 
+			user = (String) session.getAttribute("user");
+			if(utente != null){
+				if(utente != user){
+					response.sendRedirect("Index.jsp");
+				}
+			}
+		}
+	%>
 	<div class="tutto">
 		<div class="HeaderMenu">
 			<div id="menu">
 				<ul>
-			  		<li><a href="#">Home</a></li>
+			  		<li><a href="Home.jsp">Home</a></li>
 			  		<li><a href="Domanda.jsp">Fai una domanda</a></li>
 			  		<li><a href="#">Messaggi</a></li>
-			  		<li><a href="#">Amici</a></li>
-			  		<li><a href="Profilo.jsp">Profilo</a></li>
+			  		<li><a href="Profilo.jsp"><%=user %></a></li>
 				</ul>
 			</div>
 			<div id="SearchContainer">
