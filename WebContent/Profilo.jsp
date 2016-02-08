@@ -1,3 +1,4 @@
+<%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 <%@page import="java.sql.ResultSet" %>
 <%@page import="com.pacchetto.servlets.Interesse" %>
@@ -18,7 +19,12 @@
 			}
 		}*/
 	%>
-	<h2>Ciao utente <%=user %></h2>
+	<h1>Ciao utente <%=user %></h1>
+	<%
+		ResultSet rs_utente = Utente.getUtente(user);
+		rs_utente.next();
+	%>
+	<h1><%=rs_utente.getString("email") %></h1>
 	<div id="interessi" contenteditable="false" style="background-color: white;">
 		<% 
 			int contatore=1;
