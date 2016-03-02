@@ -30,7 +30,16 @@
 				id_domandante = rs.getInt("id");
 			}
 			rs.close();*/
-			rs = DomandaUtente.getTutto();
+			
+			//Non c'era prima, ritorna l'id dell'utente
+			ResultSet rs_utente = Utente.getUtente(user);
+			rs_utente.next();
+			int id_utente = rs_utente.getInt("id");
+			////////////////////////////////////////
+			
+			//rs = DomandaUtente.getTutto(); //c'era questa che mostrava tutte le domande
+			//ora invece deve mostrare solo le domande che interessano all'utente
+			rs=DomandaUtente.getDomandeInteresseP(id_utente);
 			while(rs.next()){
 			%>
 			

@@ -43,12 +43,12 @@
 				</ul>
 			</div>
 			<div id="SearchContainer">
-				<form method="GET" action="#" id="SearchForm">
+				<form method="GET" action="DomandeTrovate.jsp" id="SearchForm"> <!-- c'era # -->
 					<div id="SearchBox">
-						<input type="text" name="query" id="sb" onfocus="SearchBoxSwap('BarraRicerca_focus.png')" onblur="SearchBoxSwap('BarraRicerca.png')" />
+						<input type="text" name="titolo" id="sb" onfocus="SearchBoxSwap('BarraRicerca_focus.png')" onblur="SearchBoxSwap('BarraRicerca.png')" /> <!-- il nome non era titolo ma query -->
 					</div>
 					<div id="SearchBtn">
-						<input type="image" src="./img/PulsanteRicerca.png" name="submit" id="search_btn" alt="Btn" onmouseover="ButtonSwap('PulsanteRicerca_hover.png')" onmouseout="ButtonSwap('PulsanteRicerca.png')" />
+						<input type="image" src="./img/PulsanteRicerca.png" name="submit" id="search_btn" alt="Btn" onmouseover="ButtonSwap('PulsanteRicerca_hover.png')" onmouseout="ButtonSwap('PulsanteRicerca.png')"/>
 					</div>
 				</form>
 			</div>
