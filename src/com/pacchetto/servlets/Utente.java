@@ -1,5 +1,7 @@
 package com.pacchetto.servlets;
 
+import java.io.File;
+import java.io.FileInputStream;
 //import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +24,9 @@ public class Utente {
 	static String get_richiesta="SELECT ut.* FROM utenti AS ut, amico AS am WHERE am.id_richiedente=? AND am.id_ricevente=ut.id AND accettato = 'false'";
 	
 	//query che inserisce l'utente nel database
-	static String insert_utente = "INSERT INTO utenti VALUES (0,?,?,?,?,'0')";
+	static String insert_utente = "INSERT INTO utenti VALUES (0,?,?,?,?,'0',?)";
+	
+	//query insert immagine
 	
 	//Metodo che ritorna tutti i dati dell'utente una volta datogli il nome
 	public static ResultSet getUtente(String nomeutente) throws SQLException{
@@ -42,19 +46,24 @@ public class Utente {
 	//Metodo per l'inserimento dell'utente nel database
 	public static int insertUtente(String nickname,String email,String pass_cripted,String data) throws SQLException{
 		Connection conn= null;
+		FileInputStream immagine = null;
 		try{
 			conn= Connessione.getConnection();
+			File file = new File("C:/Users/brahi/Desktop/progetti eclipse/SocialNetwork2/WebContent/img/imgProfilo.png");
+		    immagine = new FileInputStream(file);
 			java.sql.PreparedStatement ps = conn.prepareStatement(insert_utente);
 	        ps.setString(1, nickname);
 	        ps.setString(2, email);
 	        ps.setString(3, pass_cripted);
 	        ps.setString(4, data);
+	        ps.setBinaryStream(5, immagine);
 	        int i = ps.executeUpdate();
 	        if(i>0){
 	        	//prova avvenuta registrazione
 	        	return i;
 	        	}
 	        ps.close();
+	        immagine.close();
 	        return 0;
 		}
 		catch(Exception e){

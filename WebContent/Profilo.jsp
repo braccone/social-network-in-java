@@ -1,29 +1,29 @@
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 <%@page import="java.sql.ResultSet" %>
+<%@page import="java.io.*" %>
 <%@page import="com.pacchetto.servlets.Interesse" %>
-
 	<%
-		//allow access only if session exists
-		/*String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-			if(utente != user){
-				response.sendRedirect("Index.jsp");
-			}
-			}
-		}*/
+		
 	%>
 	<h1>Ciao utente <%=user %></h1>
 	<%
 		ResultSet rs_utente = Utente.getUtente(user);
 		rs_utente.next();
+		File image = new File("./img/"+user+".png");
+		image.getParentFile().mkdirs(); 
+		image.createNewFile();
+	    FileOutputStream fos = new FileOutputStream(image);
+	    byte[] buffer = new byte[1024];
+	    InputStream is = rs_utente.getBinaryStream("immagine");
+	    while(is.read(buffer) > 0){
+	    	fos.write(buffer);
+	    }
+	    fos.close();
+	    String percorsoImg = "./img/"+user+".png";
 	%>
+	<b><%=percorsoImg %></b>
+	<img src=<%=percorsoImg %> alt="non funziona">
 	<h1><%=rs_utente.getString("email") %></h1>
 	
 	<div id="interessi" contenteditable="false" style="background-color: white;">
