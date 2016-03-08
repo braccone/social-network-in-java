@@ -49,14 +49,13 @@ public class Utente {
 		FileInputStream immagine = null;
 		try{
 			conn= Connessione.getConnection();
-			File file = new File("C:/Users/brahi/Desktop/progetti eclipse/SocialNetwork2/WebContent/img/imgProfilo.png");
-		    immagine = new FileInputStream(file);
+			String percorsoImg = "./img/imgProfilo.png";
 			java.sql.PreparedStatement ps = conn.prepareStatement(insert_utente);
 	        ps.setString(1, nickname);
 	        ps.setString(2, email);
 	        ps.setString(3, pass_cripted);
 	        ps.setString(4, data);
-	        ps.setBinaryStream(5, immagine);
+	        ps.setString(5, percorsoImg);
 	        int i = ps.executeUpdate();
 	        if(i>0){
 	        	//prova avvenuta registrazione

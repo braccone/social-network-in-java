@@ -3,27 +3,22 @@
 <%@page import="java.sql.ResultSet" %>
 <%@page import="java.io.*" %>
 <%@page import="com.pacchetto.servlets.Interesse" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 	<%
 		
 	%>
 	<h1>Ciao utente <%=user %></h1>
 	<%
 		ResultSet rs_utente = Utente.getUtente(user);
-		rs_utente.next();
-		File image = new File("./img/"+user+".png");
-		image.getParentFile().mkdirs(); 
-		image.createNewFile();
-	    FileOutputStream fos = new FileOutputStream(image);
-	    byte[] buffer = new byte[1024];
-	    InputStream is = rs_utente.getBinaryStream("immagine");
-	    while(is.read(buffer) > 0){
-	    	fos.write(buffer);
-	    }
-	    fos.close();
-	    String percorsoImg = "./img/"+user+".png";
+		if(rs_utente.next()){
+	    String percorsoImg = rs_utente.getString("immagine");
+		
 	%>
-	<b><%=percorsoImg %></b>
 	<img src=<%=percorsoImg %> alt="non funziona">
+	<form name="uploadForm" action="Uploader" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" value="" width="100" />
+		<input type="submit" name="carica" value="carica" />
+	</form>
 	<h1><%=rs_utente.getString("email") %></h1>
 	
 	<div id="interessi" contenteditable="false" style="background-color: white;">
@@ -39,6 +34,7 @@
 		  	contatore++;}
 			rs.close();
 		  %>
+		  <%} %>
 		</form> <!-- non c'era -->
 	</div>
 

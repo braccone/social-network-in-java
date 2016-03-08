@@ -33,7 +33,7 @@
 			
 			//Non c'era prima, ritorna l'id dell'utente
 			ResultSet rs_utente = Utente.getUtente(user);
-			rs_utente.next();
+			if(rs_utente.next()){
 			int id_utente = rs_utente.getInt("id");
 			////////////////////////////////////////
 			
@@ -70,7 +70,7 @@
 			<!-- pubblicato il <%=rs.getDate("data") %> alle <%=rs.getTime("ora") %>  -->
 			</div>
 			<%
-			}
+			}}
 			%>
 		</div>
 	</div>
