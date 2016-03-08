@@ -6,9 +6,17 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
 
 public class Interesse {
+	//Query per la raccolta di tutti gli interessi
 	static String get_interessi="SELECT * FROM interesse";
 
-	 
+	//Query che vede se un determinato interesse è seguito dall'utente
+	static String test_interesseseguito="SELECT * FROM interesse_utenti WHERE id_persona = ? AND id_interesse = ?";
+	
+	//Forse da cancellare
+	//Query che fa seguire un interesse ad un utente
+	static String segui_interesse="INSERT into interesse_utenti VALUES(?,?)";
+	
+	//Ritorna tutti gli interessi esistenti
 	public static ResultSet getInteressi() throws SQLException{
 		Connection conn= null;
 		try{
@@ -25,4 +33,41 @@ public class Interesse {
 		return null;
 	}
 
+	//Ritorna true se l'interesse è seguito dall'utente altrimenti ritorna false
+	public static Boolean test_Interesseseguito(int id_persona,int id_interesse) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps=conn.prepareStatement(test_interesseseguito);
+			ps.setInt(1, id_persona);
+			ps.setInt(2, id_interesse);
+	        ResultSet rs = ps.executeQuery();
+	        if(rs.next()){
+	        	return true;
+	        }
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	//Forse da cancellare
+	//Inserisce nel database l'interesse selezionato dall'utente
+	public static Boolean Segui_interesse(int id_persona,int id_interesse) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps=conn.prepareStatement(segui_interesse);
+			ps.setInt(1, id_persona);
+			ps.setInt(2, id_interesse);
+	        ps.executeQuery();
+	        return true;
+	        
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

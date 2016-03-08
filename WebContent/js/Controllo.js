@@ -111,3 +111,42 @@ function ConfermaDomanda(){
    		document.faidomanda.submit();
 	}
 }
+
+//forse da cancellare
+//Funzione per l'inserimento degli interessi nel database
+function seguiinteressi(){
+	var interessi = document.getElementsByName("interesse[]");
+	var lunghezza = document.getElementsByName("interesse[]").length;
+	//Aggiungere eventuali controlli
+	document.faidomanda.action = "InteresseUtente";
+	document.faidomanda.submit();
+	
+	//se i == lunghezza allora nessun interesse è stato selezionato
+	for(i=0;i<lunghezza;i++){
+		if(interessi[i].checked){
+			break;
+		}
+	}
+	
+	if(i==lunghezza){
+		alert("Devi almeno scegliere un interesse tra quelli elencati.");
+		return false;
+	}
+	else
+	{
+		var j=0;
+		while(j<document.getElementsByName("interesse[]").length){
+			if(interessi[j].checked){
+				interessi[j].name="select[]";
+				continue;
+			}
+			else{
+				interessi[j].name="deselect[]";
+			}
+			j++;
+		}
+		//Procede all'inserimento degli interessi
+		document.forminteresse.action = "InteressiUtente";
+   		document.forminteresse.submit();
+	}
+}
