@@ -27,7 +27,7 @@ public class Utente {
 	static String insert_utente = "INSERT INTO utenti VALUES (0,?,?,?,?,'0',?)";
 	
 	//query insert immagine
-	
+	static String update_image = "UPDATE utenti SET immagine=? WHERE username=?";
 	//Metodo che ritorna tutti i dati dell'utente una volta datogli il nome
 	public static ResultSet getUtente(String nomeutente) throws SQLException{
 		Connection conn= null;
@@ -62,7 +62,6 @@ public class Utente {
 	        	return i;
 	        	}
 	        ps.close();
-	        immagine.close();
 	        return 0;
 		}
 		catch(Exception e){
@@ -118,5 +117,26 @@ public class Utente {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	//Modifica il percorso dell'immagine caricata nel database
+	public static int updateImage(String percorsoImage,String user) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps = conn.prepareStatement(update_image);
+			ps.setString(1, percorsoImage);
+			ps.setString(2, user);
+	        int i = ps.executeUpdate();
+	        if(i>0){
+	        	//prova avvenuto inserimento
+	        	return i;
+	        	}
+	        ps.close();
+	        return 0;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

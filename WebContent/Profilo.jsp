@@ -14,7 +14,8 @@
 	    String percorsoImg = rs_utente.getString("immagine");
 		
 	%>
-	<img src=<%=percorsoImg %> alt="non funziona">
+	<b><%=percorsoImg %></b>
+	<img src=<%=percorsoImg %> alt="non funziona" />
 	<form name="uploadForm" action="Uploader" method="post" enctype="multipart/form-data">
 		<input type="file" name="file" value="" width="100" />
 		<input type="submit" name="carica" value="carica" />
