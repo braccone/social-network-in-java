@@ -1,13 +1,10 @@
 package com.pacchetto.servlets;
 
 
-import java.awt.List;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -17,12 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.nio.file.Files;
+
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.Scanner;
-
-import java.io.InputStream;
 
 
 /**
@@ -60,7 +54,7 @@ public class Uploader extends HttpServlet {
         String savePath = appPath + SAVE_DIR;
          
         // creates the save directory if it does not exists
-        File fileSaveDir = new File(appPath);
+        File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
@@ -69,9 +63,15 @@ public class Uploader extends HttpServlet {
         for (Part part : parts) {
             part.write(fileSaveDir+File.separator+getFileName(part, user));
         }
+        ImageResize ir = new ImageResize();
+        try {
+              ir.resizeImage(new File(fileSaveDir+File.separator+user+".png"), "/img/", 300, 300);
+        } catch (IOException ex) {
+              ex.printStackTrace();
+        }
         //inserisco percorso immagine nel database
         try {
-			int i = Utente.updateImage("./img/"+user+".png", user);
+			int i = Utente.updateImage("/img/"+user+".png", user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
