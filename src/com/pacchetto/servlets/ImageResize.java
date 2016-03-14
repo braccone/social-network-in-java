@@ -27,7 +27,7 @@ public class ImageResize {
         g2.drawImage(newImage, 0, 0, null);
         g2.dispose();
         String ext = FilenameUtils.getExtension(inputImage.getName());
-        ImageIO.write(buf, ext, new File(dir + inputImage.getName()));
+        ImageIO.write(buf, ext, new File(dir+File.separator + inputImage.getName()));
     }
 
 }

@@ -54,7 +54,7 @@ public class Uploader extends HttpServlet {
         String savePath = appPath + SAVE_DIR;
          
         // creates the save directory if it does not exists
-        File fileSaveDir = new File(savePath);
+        File fileSaveDir = new File("C:/Users/brahim/Desktop/progetti eclipse/img");
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
@@ -65,13 +65,14 @@ public class Uploader extends HttpServlet {
         }
         ImageResize ir = new ImageResize();
         try {
-              ir.resizeImage(new File(fileSaveDir+File.separator+user+".png"), "/img/", 300, 300);
+              ir.resizeImage(new File("C:/Users/brahim/Desktop/progetti eclipse/img/"+user+".png"), savePath , 300, -1);
         } catch (IOException ex) {
               ex.printStackTrace();
         }
         //inserisco percorso immagine nel database
         try {
 			int i = Utente.updateImage("/img/"+user+".png", user);
+			response.sendRedirect("Profilo.jsp");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
