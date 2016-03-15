@@ -2,6 +2,7 @@ package com.pacchetto.servlets;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import com.mysql.jdbc.Connection;
 
 public class DomandaUtente {
@@ -22,8 +23,12 @@ public class DomandaUtente {
 	 static String insert_domanda="INSERT INTO domanda VALUES (0,?,?,?,?,0,?)";
 	 
 	 static String get_iddomanda="SELECT id_domanda FROM domanda WHERE titolo=?";
-	 //prova prende tutte le domand
+	 //prova prende tutte le domande
 	 static String get_tutto="SELECT * FROM domanda as dom,utenti as ut WHERE dom.id_domandante=ut.id ORDER BY data DESC,ora DESC";
+	 
+	 //prende tutte le domande che contengono la stringa 
+	 static String get_domandastringa="SELECT * FROM domanda WHERE titolo LIKE ?";
+	 
 	 
 	 public static ResultSet getTutto(){
 		 try {
@@ -134,6 +139,21 @@ public class DomandaUtente {
 			}catch (Exception e) {
 			
 				e.printStackTrace();
+			}
+	}
+	
+	public static ResultSet getDomandeStringa(String titolo){
+		try {
+			Connection conn= Connessione.getConnection();
+			PreparedStatement ps = conn.prepareStatement(get_domandastringa);
+			ps.setString(1,"%"+ titolo + "%");
+			ResultSet rs = ps.executeQuery();
+			return rs;
+			
+			}catch (Exception e) {
+			
+				e.printStackTrace();
+				return null;
 			}
 	}
 	
