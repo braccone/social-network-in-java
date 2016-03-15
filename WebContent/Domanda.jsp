@@ -33,7 +33,7 @@
 							while(rs.next())
 							{
 						%>
-						<input type="checkbox" name="interesse[]" value=<%=rs.getInt("id_interesse")%>> <label><%=rs.getString("nome") %></label><br><!-- alla fine c'era <br> e non c'erano gli spazi &nbsp -->
+								<input type="checkbox" name="interesse[]" value=<%=rs.getInt("id_interesse")%>> <label><%=rs.getString("nome") %></label><br><!-- alla fine c'era <br> e non c'erano gli spazi &nbsp -->
 		  				<%
 		  					contatore++;}
 							rs.close();

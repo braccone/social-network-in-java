@@ -3,6 +3,7 @@
 	<%@page import="java.sql.ResultSet" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
+	<%@page import="com.pacchetto.servlets.InteressiUtente" %>
 	<%
 		//allow access only if session exists
 		/*String utente = request.getParameter("u");
@@ -35,7 +36,7 @@
 			rs = Interesse.getInteressi();
 			//ciclo while che stampa tutti gli interessi
 			%>
-			<form name="forminteresse" method="POST">
+			<form name="forminteresse" method="post">
 			<%
 			while(rs.next())
 			{
@@ -65,7 +66,7 @@
 			<%
 			}
 			%>
-			<input type="button" name="inserisci" value="inserisciinteressi" onClick=""/>
+			<input type="button" name="inserisci" value="inserisciinteressi" onClick="seguiinteressi()"/>
 			</form>
 		</div>
 <%@include file="./include/Footer.jsp" %>

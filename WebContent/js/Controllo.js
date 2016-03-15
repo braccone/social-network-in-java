@@ -117,10 +117,8 @@ function ConfermaDomanda(){
 function seguiinteressi(){
 	var interessi = document.getElementsByName("interesse[]");
 	var lunghezza = document.getElementsByName("interesse[]").length;
+	var i=0;
 	//Aggiungere eventuali controlli
-	document.faidomanda.action = "InteresseUtente";
-	document.faidomanda.submit();
-	
 	//se i == lunghezza allora nessun interesse è stato selezionato
 	for(i=0;i<lunghezza;i++){
 		if(interessi[i].checked){
@@ -135,18 +133,19 @@ function seguiinteressi(){
 	else
 	{
 		var j=0;
-		while(j<document.getElementsByName("interesse[]").length){
-			if(interessi[j].checked){
-				interessi[j].name="select[]";
-				continue;
-			}
-			else{
-				interessi[j].name="deselect[]";
+		
+		while(j<lunghezza){ //era document.getElementsByName("interesse[]").lenght
+			if(interessi[0].checked){  //tutti gli 0 erano j e dovrebbero continuare ad essere j
+				interessi[0].name="select[]";
+				//c'era continue;
+			}else{
+				interessi[0].name="deselect[]"; //non c'era e non ci dovrebbe essere però pare che come lu levo non funziona più cosa
 			}
 			j++;
 		}
-		//Procede all'inserimento degli interessi
 		document.forminteresse.action = "InteressiUtente";
-   		document.forminteresse.submit();
+		//alert("submit"); //da togliere
+		document.forminteresse.submit();
+		//alert("submitcompletato"); //da togliere
 	}
 }

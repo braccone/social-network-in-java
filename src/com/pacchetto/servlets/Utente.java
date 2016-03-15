@@ -24,6 +24,12 @@ public class Utente {
 	//query che inserisce l'utente nel database
 	static String insert_utente = "INSERT INTO utenti VALUES (0,?,?,?,?,'0')";
 	
+	//Da implementare:
+	////////////////////////////////
+	//Query che accetta una richiesta di amicizia
+	static String accetta_amico="UPDATE amico SET accettato='true' WHERE id_ricevente = ? AND id_richiedente=?";
+	///////////////////////////////
+	
 	//Metodo che ritorna tutti i dati dell'utente una volta datogli il nome
 	public static ResultSet getUtente(String nomeutente) throws SQLException{
 		Connection conn= null;
@@ -110,5 +116,24 @@ public class Utente {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	//Query che accetta la richiesta di amicizia di un utente
+	public static int Accetta_amico(int id_ricevente, int id_richiedente) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps = conn.prepareStatement(accetta_amico);
+	        ps.setInt(1, id_ricevente);
+	        ps.setInt(2, id_richiedente);
+	        ps.executeUpdate();
+	        ps.close();
+	        return 0;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

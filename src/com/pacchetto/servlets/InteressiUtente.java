@@ -2,14 +2,11 @@ package com.pacchetto.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.PreparedStatement;
+//import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.RequestDispatcher; //lu dispaccer
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,21 +25,21 @@ public class InteressiUtente extends HttpServlet {
     }
     Connection conn = null;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		//variabili
 		HttpSession session = request.getSession();
 		String[] select = request.getParameterValues("select[]");
-		String[] deselect = request.getParameterValues("deselect[]");
+		//String[] deselect = request.getParameterValues("deselect[]");
 		String user = (String) session.getAttribute("user");
 		int id=0;
-		//query per l'inserimento degli interessi nel database
-		String in_interessi = "INSERT INTO interesse_utenti VALUES (?,?)";
-		//query per il deselezionamento degli interessi nel database
-		String del_interessi="DELETE * FROM interesse_utenti WHERE id_persona=? AND id_interesse=?"; //da implementare
+		///Probabilmente da eliminare
+		int lunghezza=select.length;
+		
+		PrintWriter stampa= response.getWriter();  //Non c'era
 		
 		try{
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/Interessi.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/Interessi.jsp"); //ce serve?
+						
 			if(user!=null){
 				//Seleziono l'id dell'utente
 				ResultSet rs;
@@ -50,23 +47,28 @@ public class InteressiUtente extends HttpServlet {
 				rs.next();
 				id=rs.getInt("id");
 				rs.close();
-			}
+				
+				//test per vedere se entra veramente, da cancellare
+				stampa.println("<script>alert('select length adee "+lunghezza+"');</script>");
+				rd.include(request, response);
+	        	//////////////////////////////////
 				
 				conn = Connessione.getConnection();
-					//Inserimento nel database degli elementi selezionati
-					for(int j=0;j<select.length;j++){
-						PreparedStatement ps=conn.prepareStatement(in_interessi);
-						ps.setInt(1, Integer.parseInt(select[j]));
-						ps.setInt(2, id);
-						ps.executeUpdate();
-						ps.close();
+				
+				// INIZIO CON L'ELIMINARE TUTTI GLI INTERESSI SEGUITI DALL'UTENTE
+				//boolean successo=Interesse.DeleteAllInteresseXPersona(id);
+				Interesse.DeleteAllInteresseXPersona(id);
+				//////////////////////////////////////////
+				
+
+				//Inserimento nel database degli elementi selezionati
+				for(int j=0;j<lunghezza;j++){ //c'era select.lenght al posto di lunghezza
+						Interesse.Segui_interesse(id,Integer.parseInt(select[j]));
 					}
-					
-					//Eliminazione degli elementi non selezionati dal database
-					//*
-					/////
-					
-					
+				response.sendRedirect("Interessi.jsp"); //per il momento lo rimanda qui, dopo dovremmo cambiarlo
+			}else{
+				response.sendRedirect("Index.jsp");
+			}
 		}
 		catch(Exception e){
 			e.printStackTrace();

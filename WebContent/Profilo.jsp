@@ -23,6 +23,7 @@
 	<%
 		ResultSet rs_utente = Utente.getUtente(user);
 		rs_utente.next();
+		int id_utente=rs_utente.getInt("id"); //prendo l'id dell'utente
 	%>
 	<h1><%=rs_utente.getString("email") %></h1>
 	<div id="interessi" contenteditable="false" style="background-color: white;">
@@ -30,13 +31,18 @@
 			int contatore=1;
 			ResultSet rs = Interesse.getInteressi();
 			while(rs.next())
+			{
+				//se l'interesse è stato seguito allora lo stampa:
+				if(Interesse.test_Interesseseguito(id_utente,rs.getInt("id_interesse")))
 				{
 		%>
-		<input type="checkbox" name="interesse[]" value=<%=rs.getInt("id_interesse")%>> <label><%=rs.getString("nome") %></label><br>
-		 <%
-		  	contatore++;}
+					 <label><%=rs.getString("nome") %></label><br>
+		<%		}
+		  		//contatore++;
+		 	}
 			rs.close();
-		  %>
+		%>
+		<input type="button" onclick="location.href='Interessi.jsp';" value="Modifica Interessi" />
 	</div>
 
 <%@include file="./include/Footer.jsp" %>
