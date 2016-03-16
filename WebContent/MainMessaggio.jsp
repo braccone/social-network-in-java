@@ -4,6 +4,8 @@
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
 	<%@page import="com.pacchetto.servlets.InteressiUtente" %>
+	<%@page import="com.pacchetto.servlets.Messaggio" %>
+	<%@page import="com.pacchetto.servlets.Utente" %>
 	<%
 		//allow access only if session exists
 		/*String utente = request.getParameter("u");
@@ -22,16 +24,47 @@
 	%>
 	<div class="SceltaHomeMessaggi">
 		<a href="InviaMessaggio.jsp">Invia un messaggio</a>
+		<a href="MessaggioInviato.jsp">Vedi i messaggi che hai inviato</a>
 	</div>
 	
-	<div class="MessaggiRicevuti">
+	<div class="DomandePoste">
 		<h2> Messaggi Ricevuti </h2>
 		<%
 		ResultSet rs;
-		int id_utente;
+		ResultSet rsutente;
+		int id_messaggio;
+		String nomeutente;
+		String testo;
 		rs=Utente.getUtente(user);
 		//Inserimento dell'id utente nella variabile apposita
-		id_utente=rs.getInt("id");
+		//Dovrei fare dei controlli e vedere se non è null
+		rs.next();
+		int id=rs.getInt("id");
+		rs=Messaggio.Get_MessaggiRicevuti(id);
+		while(rs.next())
+		{
+		%>
+			<div id="Domande">
+				<div id="data">
+					<%=rs.getDate("data") %>
+				</div>
+				<%
+				id_messaggio=rs.getInt("id_messaggio");
+				testo=rs.getString("testo");
+				if(testo.length()>54){
+					testo = testo.substring(0, 54)+"...";	
+				}
+				%>
+				<h2><a href="Messaggio.jsp?id=<%=id_messaggio%>"><%=testo%></a></h2>
+				<%
+					rsutente=Messaggio.Get_Mittente(id_messaggio);
+					rsutente.next(); //forse ce devo mette un controllo
+					nomeutente=rsutente.getString("username");
+				%>
+				<i>Inviato da <%=nomeutente%></i><br><br>
+			</div>
+		<%
+		}
 		%>
 	</div>
 <%@include file="./include/Footer.jsp" %>

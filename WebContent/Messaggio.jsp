@@ -1,8 +1,9 @@
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 	<%@page import="java.sql.ResultSet" %>
-	<%@page import="com.pacchetto.servlets.Interesse" %>
+	<%@page import="com.pacchetto.servlets.RisposteUtente" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
+	<%@page import="com.pacchetto.servlets.Messaggio" %>
 	<%
 		//allow access only if session exists
 		/*String utente = request.getParameter("u");
@@ -19,41 +20,36 @@
 			}
 		}*/
 	%>
-	
-	<!-- dovrebbe prendere l'id dell'utente [da fare] -->
-	
-	<div class="DomandaTutto"> <!--  da cambiare nome -->
-		<div class="Domanda"> <!--  cambiare nome -->
-		<h1>Messaggio</h1>
-			<div id="titolo">
-				<form name="faidomanda" method="post">
-					<textarea rows="9" cols="50" placeholder="Inserisci la domanda" name="descrizione"></textarea><br>
-					
-	  				<input type="button" name="btn_invia" value="Invia" onclick=""> <!-- inserire funzione che invia il messaggio -->
-				</form>
+	<div class="DomandePoste">
+		<h1 style="color: blue;font-size: 22px;">Messaggio</h1>
+		<%
+		ResultSet rs; //Result set per il messaggio
+		ResultSet mittente; //Result set che contiene le informazioni relative al mittente
+		String id_messaggio = request.getParameter("id"); //prende l'id del messaggio
+		rs = Messaggio.Get_Messaggio(Integer.parseInt(id_messaggio));
+		mittente = Messaggio.Get_Mittente(Integer.parseInt(id_messaggio));
+		while(rs.next())
+		{
+			mittente.next(); //forse devo fare qualche controllo
+		%>
+			<div id="Domande"> <!-- in realtà è messaggio -->
+				<div id="data">
+					Da: <%=mittente.getString("username")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=rs.getDate("data") %>
+				</div>
+				<h2><%=rs.getString("testo")%></h2>
 			</div>
-		</div>
+		<%
+		}
+		%>
+	</div>
 	
-		<div class="MessaggiInviatiRicevuti"> <!-- era DomandePoste -->
-			<h1>I tuoi messaggi con l'utente</h1>
-			<%
-			ResultSet rs;
-			rs = Utente.getUtente(user);
-			int id_utente = 0;
-			//Inserimento dell'id 
-			while(rs.next()){
-				id_utente = rs.getInt("id");
-			}
-			rs.close();
-			while(rs.next())
-			{
-			%>
-			
-			<!-- da fare -->
-			
-			<%
-			}
-			%>
+	<div class="Risposte">
+		<div id="Domanda">
+		<form method="post" action="Messaggia">
+			<textarea rows="7" cols="50" name="messaggia"></textarea><br>
+			<input type="submit" value="MESSAGGIA" name="btn_risposta">
+			<input type="hidden" name="prova" value="0"> <!-- su value ci andrà qualcosa -->
+		</form>
 		</div>
 	</div>
 <%@include file="./include/Footer.jsp" %>

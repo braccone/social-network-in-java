@@ -54,12 +54,12 @@ public class Login extends HttpServlet {
 						if (passwordEncryptor.checkPassword(pwd, pwd_cripted)) {
 				        	HttpSession session = request.getSession();
 							session.setAttribute("user", user);
-							//setting session to expiry in 30 mins
+							//setting session to expire in 30 mins
 							session.setMaxInactiveInterval(30*60);
 							Cookie userName = new Cookie("user", user);
 							userName.setMaxAge(30*60);
 							response.addCookie(userName);
-							response.sendRedirect("LoginSuccess.jsp");
+							response.sendRedirect("Home.jsp"); //c'era LoginSuccess
 				        	} 
 				        else {
 				        	RequestDispatcher rd = getServletContext().getRequestDispatcher("/Index.jsp");

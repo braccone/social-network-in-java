@@ -35,6 +35,12 @@ public class Messaggio {
 	//Query che dati due utenti, ritorna tutti i messaggi che questi utenti si sono mandati
 	static String get_discussione="SELECT * FROM messaggio WHERE (id_mittente=? AND id_destinatario=?) OR (id_mittente=? AND id_destinatario=?)";
 	
+	//Query che ritorna il mittente del messaggio
+	static String get_mittente="SELECT * FROM messaggio as ms,utenti as ut WHERE ms.id_messaggio=? AND ms.id_mittente=ut.id";
+	
+	//Query che ritorna un determinato messaggio dato l'id
+	static String get_messaggio="SELECT * FROM messaggio WHERE id_messaggio=?";
+	
 	//Metodo che invia il messaggio all'utente selezionato
 	public static void Invia_Messaggio(int id_mittente, int id_ricevente, String messaggio, String data) throws SQLException{
 		Connection conn= null;
@@ -161,6 +167,38 @@ public class Messaggio {
 			ps.setInt(2, id_utente2);
 			ps.setInt(3, id_utente2);
 			ps.setInt(4, id_utente1);
+			ResultSet rs=ps.executeQuery();
+	        return rs;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//Metodo che ritorna il mittente di un determinato messaggio
+	public static ResultSet Get_Mittente(int id_messaggio) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps=conn.prepareStatement(get_mittente);
+			ps.setInt(1, id_messaggio);
+			ResultSet rs=ps.executeQuery();
+	        return rs;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//Metodo che ritorna un messsaggio dato l'id dello stesso
+	public static ResultSet Get_Messaggio(int id_messaggio) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps=conn.prepareStatement(get_messaggio);
+			ps.setInt(1, id_messaggio);
 			ResultSet rs=ps.executeQuery();
 	        return rs;
 		}

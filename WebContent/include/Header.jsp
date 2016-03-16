@@ -38,7 +38,7 @@
 				<ul>
 			  		<li><a href="Home.jsp">Home</a></li>
 			  		<li><a href="Domanda.jsp">Fai una domanda</a></li>
-			  		<li><a href="#">Messaggi</a></li>
+			  		<li><a href="MainMessaggio.jsp">Messaggi</a></li>
 			  		<li><a href="Profilo.jsp"><%=user %></a></li>
 			  		<form id="logoutForm" action="Logout" method="post">
 			  			<li><a onclick="document.getElementById('logoutForm').submit();">Logout</a></li>
