@@ -42,7 +42,7 @@ public class Messaggio {
 	static String get_messaggio="SELECT * FROM messaggio WHERE id_messaggio=?";
 	
 	//Metodo che invia il messaggio all'utente selezionato
-	public static void Invia_Messaggio(int id_mittente, int id_ricevente, String messaggio, String data) throws SQLException{
+	public static void invia_Messaggio(int id_mittente, int id_ricevente, String messaggio, String data) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -59,7 +59,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che controlla se il messaggio è stato visualizzato oppure no (true=visualizzato, false=non visualizzato)
-	public static boolean Check_Letto(int id_messaggio) throws SQLException{
+	public static boolean check_Letto(int id_messaggio) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -78,7 +78,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che fa considerare un messaggio già letto
-	public static void Leggi_Messaggio(int id_messaggio) throws SQLException{
+	public static void leggi_Messaggio(int id_messaggio) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -93,7 +93,7 @@ public class Messaggio {
 	
 	
 	//Metodo che controlla se ci sono messaggio che l'utente non ha mai letto(true=qualche non letto, false=tutti letti)
-	public static boolean Check_EsistenzaNonLetti(int id_destinatario) throws SQLException{
+	public static boolean check_EsistenzaNonLetti(int id_destinatario) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -112,7 +112,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che Considera Letti tutti i messaggi ricevuti dall'utente.
-	public static void Leggi_Tutto(int id_destinatario) throws SQLException{
+	public static void leggi_Tutto(int id_destinatario) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -126,7 +126,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna tutti i messaggi che l'utente ha ricevuto
-	public static ResultSet Get_MessaggiRicevuti(int id_destinatario) throws SQLException{
+	public static ResultSet get_MessaggiRicevuti(int id_destinatario) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -142,7 +142,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna tutti i messaggi inviati dall'utente
-	public static ResultSet Get_MessaggiInviati(int id_mittente) throws SQLException{
+	public static ResultSet get_MessaggiInviati(int id_mittente) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -158,7 +158,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna tutti i messaggi che si sono scambiati due utenti
-	public static ResultSet Get_Discussione(int id_utente1,int id_utente2) throws SQLException{
+	public static ResultSet get_Discussione(int id_utente1,int id_utente2) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -177,7 +177,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna il mittente di un determinato messaggio
-	public static ResultSet Get_Mittente(int id_messaggio) throws SQLException{
+	public static ResultSet get_Mittente(int id_messaggio) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();
@@ -193,7 +193,7 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna un messsaggio dato l'id dello stesso
-	public static ResultSet Get_Messaggio(int id_messaggio) throws SQLException{
+	public static ResultSet get_Messaggio(int id_messaggio) throws SQLException{
 		Connection conn= null;
 		try{
 			conn= Connessione.getConnection();

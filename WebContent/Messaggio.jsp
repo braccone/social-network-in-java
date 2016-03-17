@@ -26,8 +26,8 @@
 		ResultSet rs; //Result set per il messaggio
 		ResultSet mittente; //Result set che contiene le informazioni relative al mittente
 		String id_messaggio = request.getParameter("id"); //prende l'id del messaggio
-		rs = Messaggio.Get_Messaggio(Integer.parseInt(id_messaggio));
-		mittente = Messaggio.Get_Mittente(Integer.parseInt(id_messaggio));
+		rs = Messaggio.get_Messaggio(Integer.parseInt(id_messaggio));
+		mittente = Messaggio.get_Mittente(Integer.parseInt(id_messaggio));
 		while(rs.next())
 		{
 			mittente.next(); //forse devo fare qualche controllo

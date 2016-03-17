@@ -112,7 +112,7 @@ function ConfermaDomanda(){
 	}
 }
 
-//forse da cancellare
+
 //Funzione per l'inserimento degli interessi nel database
 function seguiinteressi(){
 	var interessi = document.getElementsByName("interesse[]");
@@ -144,8 +144,13 @@ function seguiinteressi(){
 			j++;
 		}
 		document.forminteresse.action = "InteressiUtente";
-		//alert("submit"); //da togliere
 		document.forminteresse.submit();
-		//alert("submitcompletato"); //da togliere
 	}
+}
+
+//Funzione che fa ritornare l'utente alla stessa pagina dando alla stessa l'informazione di ciò che ha cercato
+function cercaamicomessaggio(){
+	var testo = document.nomeamico.amico.value;
+	var searchValue = encodeURIComponent(testo);
+	window.location.href = 'CercaAmicoMessaggio.jsp?search=' + searchValue;
 }

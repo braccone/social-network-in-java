@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import com.mysql.jdbc.Connection;
 
 public class DomandaUtente {
-	 //attributi
+	//attributi
 	//Query che ricerca le domande fatte dall'utente
 	static String get_domande="SELECT * FROM domanda WHERE id_domandante =? ORDER BY data DESC,ora DESC";
 	
@@ -23,11 +23,12 @@ public class DomandaUtente {
 	 static String insert_domanda="INSERT INTO domanda VALUES (0,?,?,?,?,0,?)";
 	 
 	 static String get_iddomanda="SELECT id_domanda FROM domanda WHERE titolo=?";
+	 
 	 //prova prende tutte le domande
 	 static String get_tutto="SELECT * FROM domanda as dom,utenti as ut WHERE dom.id_domandante=ut.id ORDER BY data DESC,ora DESC";
 	 
-	 //prende tutte le domande che contengono la stringa 
-	 static String get_domandastringa="SELECT * FROM domanda WHERE titolo LIKE ?";
+	 //prende tutte le domande che contengono la stringa ordinato per data e ora
+	 static String get_domandastringa="SELECT * FROM domanda WHERE titolo LIKE ? ORDER BY data DESC,ora DESC";
 	 
 	 
 	 public static ResultSet getTutto(){
@@ -135,11 +136,10 @@ public class DomandaUtente {
 			if(i>0){
 	        	//Qui dobbiamo mettere qualcosa per far capire all'utente che la domanda è stata inserita
 			}
+		}catch (Exception e) {
 			
-			}catch (Exception e) {
-			
-				e.printStackTrace();
-			}
+			e.printStackTrace();
+		}
 	}
 	
 	public static ResultSet getDomandeStringa(String titolo){
@@ -151,11 +151,8 @@ public class DomandaUtente {
 			return rs;
 			
 			}catch (Exception e) {
-			
 				e.printStackTrace();
 				return null;
 			}
 	}
-	
-	
 }

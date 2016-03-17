@@ -22,13 +22,16 @@
 			}
 		}*/
 	%>
+	<!--  
 	<div class="SceltaHomeMessaggi">
 		<a href="InviaMessaggio.jsp">Invia un messaggio</a>
 		<a href="MessaggioInviato.jsp">Vedi i messaggi che hai inviato</a>
-	</div>
+	</div> -->
 	
 	<div class="DomandePoste">
-		<h2> Messaggi Ricevuti </h2>
+		<h2> Messaggi Ricevuti </h2><br>
+		<a href="CercaAmicoMessaggio.jsp">Invia un messaggio</a><br>
+		<a href="MessaggioInviato.jsp">Vedi i messaggi che hai inviato</a><br>
 		<%
 		ResultSet rs;
 		ResultSet rsutente;
@@ -40,7 +43,7 @@
 		//Dovrei fare dei controlli e vedere se non è null
 		rs.next();
 		int id=rs.getInt("id");
-		rs=Messaggio.Get_MessaggiRicevuti(id);
+		rs=Messaggio.get_MessaggiRicevuti(id);
 		while(rs.next())
 		{
 		%>
@@ -57,7 +60,7 @@
 				%>
 				<h2><a href="Messaggio.jsp?id=<%=id_messaggio%>"><%=testo%></a></h2>
 				<%
-					rsutente=Messaggio.Get_Mittente(id_messaggio);
+					rsutente=Messaggio.get_Mittente(id_messaggio);
 					rsutente.next(); //forse ce devo mette un controllo
 					nomeutente=rsutente.getString("username");
 				%>
