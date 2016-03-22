@@ -111,3 +111,46 @@ function ConfermaDomanda(){
    		document.faidomanda.submit();
 	}
 }
+
+
+//Funzione per l'inserimento degli interessi nel database
+function seguiinteressi(){
+	var interessi = document.getElementsByName("interesse[]");
+	var lunghezza = document.getElementsByName("interesse[]").length;
+	var i=0;
+	//Aggiungere eventuali controlli
+	//se i == lunghezza allora nessun interesse è stato selezionato
+	for(i=0;i<lunghezza;i++){
+		if(interessi[i].checked){
+			break;
+		}
+	}
+	
+	if(i==lunghezza){
+		alert("Devi almeno scegliere un interesse tra quelli elencati.");
+		return false;
+	}
+	else
+	{
+		var j=0;
+		
+		while(j<lunghezza){ //era document.getElementsByName("interesse[]").lenght
+			if(interessi[0].checked){  //tutti gli 0 erano j e dovrebbero continuare ad essere j
+				interessi[0].name="select[]";
+				//c'era continue;
+			}else{
+				interessi[0].name="deselect[]"; //non c'era e non ci dovrebbe essere però pare che come lu levo non funziona più cosa
+			}
+			j++;
+		}
+		document.forminteresse.action = "InteressiUtente";
+		document.forminteresse.submit();
+	}
+}
+
+//Funzione che fa ritornare l'utente alla stessa pagina dando alla stessa l'informazione di ciò che ha cercato
+function cercaamicomessaggio(){
+	var testo = document.nomeamico.amico.value;
+	var searchValue = encodeURIComponent(testo);
+	window.location.href = 'CercaAmicoMessaggio.jsp?search=' + searchValue;
+}

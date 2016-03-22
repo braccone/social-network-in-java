@@ -28,6 +28,15 @@ public class Utente {
 	
 	//query insert immagine
 	static String update_image = "UPDATE utenti SET immagine=? WHERE username=?";
+
+	//Query che accetta una richiesta di amicizia
+	static String accetta_amico="UPDATE amico SET accettato='true' WHERE id_ricevente = ? AND id_richiedente=?";
+	///////////////////////////////
+	
+	//Query che ritorna tutti gli amici di un utente che ha un nome simile a quello dato in Input
+	//prima al posto di true c'era 'true' con le virgolette che ho messo
+	static String cerca_amici="SELECT ut.* FROM utenti AS ut, amico as am WHERE (((ut.id=am.id_richiedente AND am.id_ricevente=?) OR (ut.id=am.id_ricevente AND am.id_richiedente=?)) AND accettato=true) AND ut.username LIKE ?";
+
 	//Metodo che ritorna tutti i dati dell'utente una volta datogli il nome
 	public static ResultSet getUtente(String nomeutente) throws SQLException{
 		Connection conn= null;
@@ -118,6 +127,7 @@ public class Utente {
 		}
 		return null;
 	}
+
 	//Modifica il percorso dell'immagine caricata nel database
 	public static int updateImage(String percorsoImage,String user) throws SQLException{
 		Connection conn= null;
@@ -131,6 +141,22 @@ public class Utente {
 	        	//prova avvenuto inserimento
 	        	return i;
 	        	}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	//Query che accetta la richiesta di amicizia di un utente
+	public static int Accetta_amico(int id_ricevente, int id_richiedente) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps = conn.prepareStatement(accetta_amico);
+	        ps.setInt(1, id_ricevente);
+	        ps.setInt(2, id_richiedente);
+	        ps.executeUpdate();
 	        ps.close();
 	        return 0;
 		}
@@ -139,4 +165,24 @@ public class Utente {
 		}
 		return 0;
 	}
+
+	//Metodo che ritorna tutti gli amici di un utente che hanno nome simile a quello datogli in input
+	public static ResultSet cercaAmici(int id_utente,String nomeamico) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps=conn.prepareStatement(cerca_amici);
+			ps.setInt(1, id_utente);
+			ps.setInt(2, id_utente);
+			ps.setString(3, "%"+nomeamico+"%");
+	        ResultSet rs = ps.executeQuery();
+			return rs;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }
+

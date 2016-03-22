@@ -11,8 +11,9 @@
 	<%
 		ResultSet rs_utente = Utente.getUtente(user);
 		if(rs_utente.next()){
-	    String percorsoImg = rs_utente.getString("immagine");
-		
+	    String percorsoImg = rs_utente.getString("immagine");	
+		int id_utente=rs_utente.getInt("id"); //prendo l'id dell'utente
+
 	%>
 	<img src=<%=percorsoImg %> alt="non funziona" />
 	<form name="uploadForm" action="Uploader" method="post" enctype="multipart/form-data">
@@ -28,13 +29,18 @@
 			ResultSet rs = Interesse.getInteressi();
 			while(rs.next())
 			{
-		%>
-		<input type="checkbox" name="interesse[]" value=<%=rs.getInt("id_interesse")%>  <%if(Interesse.checkinteresse(rs_utente.getInt("id"),rs.getInt("id_interesse"))){%> checked <%}%> > <label><%=rs.getString("nome") %></label><br>
-		 <%
-		  	contatore++;}
-			rs.close();
-		  %>
-		  <%} %>
+				//se l'interesse è stato seguito allora lo stampa:
+				if(Interesse.test_Interesseseguito(id_utente,rs.getInt("id_interesse")))
+				{
+			%>
+			 <label><%=rs.getString("nome") %></label><br>
+			<% 
+				}
+			}
+			rs.close();}
+		rs_utente.close();
+			%>
+			<input type="button" onclick="location.href='Interessi.jsp';" value="Modifica Interessi" />
 		</form> <!-- non c'era -->
 	</div>
 
