@@ -56,6 +56,7 @@ public class Risposta extends HttpServlet {
 					stampa.println("<script>alert('Risposta Inserita nel database');window.location.href = 'Risposta.jsp?id="+id_domanda+"';"+"</script>");
 					rd.include(request, response);
 				}
+        		response.sendRedirect("Risposta.jsp?id="+id_domanda);
         	}
         	else{
         		response.sendRedirect("Risposta.jsp?id="+id_domanda);

@@ -21,6 +21,10 @@ public class ImageResize {
      */
     public void resizeImage(File inputImage, String dir, int width, int height) throws IOException {
         Image image = ImageIO.read(inputImage);
+        File imgvecchia = new File(dir);
+        imgvecchia.delete();
+        File nullo = new File(dir+File.separator+"null");
+        nullo.delete();
         Image newImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         BufferedImage buf = new BufferedImage(newImage.getWidth(null), newImage.getHeight(null), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = buf.createGraphics();

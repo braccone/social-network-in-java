@@ -15,7 +15,7 @@ public class RisposteUtente {
 	static String get_rispostedomanda="SELECT risp.* FROM risposta AS risp, domanda AS dm WHERE risp.id_domanda = dm.id_domanda AND dm.id_domanda=?";
 	
 	//Query che inserisce la risposta nel database
-	static String insert_risposta="INSERT INTO risposta VALUES(0,?,?,?,?,false,?)";
+	static String insert_risposta="INSERT INTO risposta VALUES(0,?,?,?,?,?,0)";
 	
 	//Query che ritorna i dati dell'utente che ha risposto ad una domanda
 	static String get_utente="SELECT ut.* FROM utenti as ut,risposta as ri WHERE ut.id = ri.id_rispondente and ri.id_rispondente=?";
