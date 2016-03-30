@@ -12,6 +12,9 @@ public class Utente {
 	//query che ritorna tutti i dati dell'utente scelto
 	static String get_utente="SELECT * FROM utenti WHERE username=?";
 	
+	//query che ritorna tutti i dati dell'utente datogli l'id;
+	static String get_utentexid="SELECT * FROM utenti WHERE id=?";
+	
 	//query che ritorna tutti gli amici dell'utente
 	static String get_amici="SELECT ut.* FROM utenti AS ut, amico AS am WHERE (am.id_richiedente=? OR am.id_ricevente=?) AND ut.id != ? AND accettato = 'true'";
 	
@@ -39,6 +42,22 @@ public class Utente {
 			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_utente);
 			ps.setString(1, nomeutente);
+	        ResultSet rs = ps.executeQuery();
+			return rs;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	//Metodo che ritorna tutti i dati dell'utente una volta datogli l'id
+	public static ResultSet getUtenteXId(int id) throws SQLException{
+		Connection conn= null;
+		try{
+			conn= Connessione.getConnection();
+			java.sql.PreparedStatement ps=conn.prepareStatement(get_utentexid);
+			ps.setInt(1, id);
 	        ResultSet rs = ps.executeQuery();
 			return rs;
 		}
