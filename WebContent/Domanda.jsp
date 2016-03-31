@@ -36,7 +36,7 @@
 								<input type="checkbox" name="interesse[]" value=<%=rs.getInt("id_interesse")%>> <label><%=rs.getString("nome") %></label><br><!-- alla fine c'era <br> e non c'erano gli spazi &nbsp -->
 		  				<%
 		  					contatore++;}
-							rs.close();
+							//rs.close();
 		  				%>
 	  				</div>
 	  				<input type="button" name="btn_domanda" value="Conferma" onclick="ConfermaDomanda()">
@@ -52,7 +52,7 @@
 			while(rs.next()){
 				id_domandante = rs.getInt("id");
 			}
-			rs.close();
+			//rs.close();
 			rs = DomandaUtente.getDomande(id_domandante);
 			while(rs.next()){
 			%>

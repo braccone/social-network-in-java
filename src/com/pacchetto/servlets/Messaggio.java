@@ -56,6 +56,7 @@ public class Messaggio {
 			ps.setString(4, data);
 			ps.setString(5, ora);
 	        ps.executeUpdate();
+	       // conn.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -71,12 +72,15 @@ public class Messaggio {
 			ps.setInt(1, id_messaggio);
 	        ResultSet rs=ps.executeQuery();
 	        if(rs.next()){
+	        	//conn.close();
 	        	return true;
 	        }
+	       // conn.close();
 	        return false;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			conn.close();
 			return false;
 		}
 	}
@@ -89,6 +93,7 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(leggi_messaggio);
 			ps.setInt(1, id_messaggio);
 	        ps.executeUpdate();
+	        //conn.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -105,12 +110,15 @@ public class Messaggio {
 			ps.setInt(1, id_destinatario);
 	        ResultSet rs=ps.executeQuery();
 	        if(rs.next()){
+	        	//conn.close();
 	        	return true;
 	        }
+	       // conn.close();
 	        return false;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 			return false;
 		}
 	}
@@ -123,9 +131,11 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(leggi_tutti_messaggi);
 			ps.setInt(1, id_destinatario);
 	        ps.executeUpdate();
+	       // conn.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 		}
 	}
 	
@@ -137,10 +147,12 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_messaggiricevuti);
 			ps.setInt(1, id_destinatario);
 			ResultSet rs=ps.executeQuery();
-	        return rs;
+			//conn.close();
+			return rs;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 			return null;
 		}
 	}
@@ -153,10 +165,12 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_messaggiinviati);
 			ps.setInt(1, id_mittente);
 			ResultSet rs=ps.executeQuery();
+			//conn.close();
 	        return rs;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 			return null;
 		}
 	}
@@ -172,10 +186,12 @@ public class Messaggio {
 			ps.setInt(3, id_utente2);
 			ps.setInt(4, id_utente1);
 			ResultSet rs=ps.executeQuery();
+			//conn.close();
 	        return rs;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 			return null;
 		}
 	}
@@ -188,10 +204,12 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_mittente);
 			ps.setInt(1, id_messaggio);
 			ResultSet rs=ps.executeQuery();
+			//conn.close();
 	        return rs;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 			return null;
 		}
 	}
@@ -204,10 +222,12 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_destinatario);
 			ps.setInt(1, id_messaggio);
 			ResultSet rs=ps.executeQuery();
+			//conn.close();
 	        return rs;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 			return null;
 		}
 	}
@@ -220,10 +240,12 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_messaggio);
 			ps.setInt(1, id_messaggio);
 			ResultSet rs=ps.executeQuery();
+			//conn.close();
 	        return rs;
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			//conn.close();
 			return null;
 		}
 	}

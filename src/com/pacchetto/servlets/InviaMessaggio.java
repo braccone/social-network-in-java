@@ -58,6 +58,7 @@ public class InviaMessaggio extends HttpServlet {
 					stampa.println("<script>alert('Il messaggio e' stato inviato');"+"</script>");
 					response.sendRedirect("MessaggioInviato.jsp");
 				}
+				conn.close();
 			}
 			else
 			{

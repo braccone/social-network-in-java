@@ -13,6 +13,9 @@
 		String id_messaggio = request.getParameter("id"); //prende l'id del messaggio
 		rs = Messaggio.get_Messaggio(Integer.parseInt(id_messaggio));
 		mittente = Messaggio.get_Mittente(Integer.parseInt(id_messaggio));
+		//legge il messaggio
+		Messaggio.leggi_Messaggio(Integer.parseInt(id_messaggio));
+		
 		while(rs.next())
 		{
 			mittente.next(); //forse devo fare qualche controllo

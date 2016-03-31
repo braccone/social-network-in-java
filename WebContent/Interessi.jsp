@@ -65,6 +65,7 @@
 			</div>
 			<%
 			}
+			rs.close();
 			%>
 			<input type="button" name="inserisci" value="inserisciinteressi" onClick="seguiinteressi()"/>
 			</form>

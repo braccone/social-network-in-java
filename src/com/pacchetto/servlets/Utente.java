@@ -16,13 +16,13 @@ public class Utente {
 	static String get_utentexid="SELECT * FROM utenti WHERE id=?";
 	
 	//query che ritorna tutti gli amici dell'utente
-	static String get_amici="SELECT ut.* FROM utenti AS ut, amico AS am WHERE (am.id_richiedente=? OR am.id_ricevente=?) AND ut.id != ? AND accettato = 'true'";
+	static String get_amici="SELECT ut.* FROM utenti AS ut, amico AS am WHERE (am.id_richiedente=? OR am.id_ricevente=?) AND ut.id != ? AND am.accettato = 1 AND (am.id_richiedente=ut.id OR am.id_ricevente=ut.id)";
 	
 	//query che ritorna tutte le richieste di amicizia ricevute dall'utente
-	static String get_pendingrequests="SELECT ut.* FROM utenti AS ut, amico AS am WHERE am.id_ricevente = ? AND am.id_richiedente=ut.id AND accettato = 'false'";
+	static String get_pendingrequests="SELECT ut.* FROM utenti AS ut, amico AS am WHERE am.id_ricevente = ? AND am.id_richiedente=ut.id AND accettato = 0";
 	
 	//query che ritorna tutte le richieste di amicizia inviate dall'utente
-	static String get_richiesta="SELECT ut.* FROM utenti AS ut, amico AS am WHERE am.id_richiedente=? AND am.id_ricevente=ut.id AND accettato = 'false'";
+	static String get_richiesta="SELECT ut.* FROM utenti AS ut, amico AS am WHERE am.id_richiedente=? AND am.id_ricevente=ut.id AND accettato = 0";
 	
 	//query che inserisce l'utente nel database
 	static String insert_utente = "INSERT INTO utenti VALUES (0,?,?,?,?,'0')";
@@ -48,6 +48,12 @@ public class Utente {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		finally{ 
+		    if(conn!=null){
+		    	conn.close();
+		    }
+		}
+
 		return null;
 	}
 	

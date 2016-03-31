@@ -16,6 +16,7 @@
 		response.sendRedirect("Home.jsp");
 	}
 	String nomemittente = rs.getString("username");
+	rs.close();
 	%>
 	
 	<form name="inviamessaggio" method="post">

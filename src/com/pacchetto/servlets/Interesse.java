@@ -28,9 +28,7 @@ public class Interesse {
 		try{
 			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_interessi);
-
 	        ResultSet rs = ps.executeQuery();
-	     
 			return rs;
 		}
 		catch(Exception e){
@@ -68,7 +66,6 @@ public class Interesse {
 			ps.setInt(1, id_persona);
 			ps.setInt(2, id_interesse);
 	        ps.executeUpdate();
-	        conn.commit(); //non c'era, è un test
 	        return true;
 	        
 		}
@@ -86,7 +83,6 @@ public class Interesse {
 			ps.setInt(1, id_persona);
 			ps.setInt(2, id_interesse);
 	        ps.executeUpdate();
-	        conn.commit(); //non c'era, è un test
 	        return true;
 		}
 		catch(Exception e){
@@ -102,7 +98,6 @@ public class Interesse {
 			java.sql.PreparedStatement ps=conn.prepareStatement(delete_all_interessixutente);
 			ps.setInt(1, id_persona);
 	        ps.executeUpdate();
-	        conn.commit(); //non c'era, è un test
 	        return true;
 		}
 		catch(Exception e){

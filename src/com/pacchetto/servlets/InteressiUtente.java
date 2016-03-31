@@ -64,8 +64,10 @@ public class InteressiUtente extends HttpServlet {
 				for(int j=0;j<lunghezza;j++){
 						Interesse.Segui_interesse(id,Integer.parseInt(select[j]));
 					}
+				//conn.close();
 				response.sendRedirect("Interessi.jsp");
 			}else{
+				//conn.close();
 				response.sendRedirect("Index.jsp");
 			}
 		}

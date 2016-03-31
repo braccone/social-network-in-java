@@ -38,11 +38,26 @@
 		%>
 					 <label><%=rs.getString("nome") %></label><br>
 		<%		}
-		  		//contatore++;
 		 	}
 			rs.close();
 		%>
 		<input type="button" onclick="location.href='Interessi.jsp';" value="Modifica Interessi" />
+	</div>
+	
+	<div id="listaamici">
+	<h1>Amici</h1>
+	<a href="AggiungiAmico.jsp">Invia richiesta di amicizia</a>
+		<%
+		rs = Utente.getAmici(id_utente);
+		while(rs.next())
+		{
+		%>
+				<div id="Domande">
+				<h2><a href="ProfiloEsterno.jsp?id=<%=rs.getInt("id")%>"><%=rs.getString("ut.username")%></a></h2>
+				</div>
+		<%
+		}
+		%>
 	</div>
 
 <%@include file="./include/Footer.jsp" %>
