@@ -13,9 +13,12 @@
 	<%
 		Connection conn = Connessione.getConnection();
 		ResultSet rs_utente = Utente.getUtente(user,conn);
+		ResultSet rs_interesse = Interesse.getInteressi(conn);
+		int id_utente=1;
 		if(rs_utente.next()){
 	    String percorsoImg = rs_utente.getString("immagine");	
-		int id_utente=rs_utente.getInt("id"); //prendo l'id dell'utente
+		 //prendo l'id dell'utente
+		 id_utente=rs_utente.getInt("id");
 
 	%>
 	<img src=<%=percorsoImg %> alt="non funziona" />
@@ -29,23 +32,41 @@
 		<form name="scegliinteressi" method="post"> <!-- non c'era --> 
 		<% 
 			int contatore=1;
-			ResultSet rs = Interesse.getInteressi(conn);
-			while(rs.next())
+			while(rs_interesse.next())
 			{
 				//se l'interesse è stato seguito allora lo stampa:
-				if(Interesse.test_Interesseseguito(id_utente,rs.getInt("id_interesse")))
+				if(Interesse.test_Interesseseguito(id_utente,rs_interesse.getInt("id_interesse")))
 				{
 			%>
-			 <label><%=rs.getString("nome") %></label><br>
+			 <label><%=rs_interesse.getString("nome") %></label><br>
 			<% 
 				}
 			}
-			rs.close();}
+			rs_interesse.close();}
 		rs_utente.close();
 		conn.close();
 			%>
 			<input type="button" onclick="location.href='Interessi.jsp';" value="Modifica Interessi" />
 		</form> <!-- non c'era -->
+
+	</div>
+	
+	<div id="listaamici">
+	<h1>Amici</h1>
+	<a href="AggiungiAmico.jsp">Invia richiesta di amicizia</a>
+		<%
+		ResultSet rs = Utente.getAmici(id_utente,conn);
+		if(rs!=null){
+			while(rs.next())
+			{
+			%>
+				<div id="Domande">
+				<h2><a href="ProfiloEsterno.jsp?id=<%=rs.getInt("id")%>"><%=rs.getString("ut.username")%></a></h2>
+				</div>
+			<%
+			}
+		}
+		%>
 	</div>
 
 <%@include file="./include/Footer.jsp" %>

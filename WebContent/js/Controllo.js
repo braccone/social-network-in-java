@@ -1,3 +1,20 @@
+//funzione che invia una domanda ad un utente
+function ConfermaMessaggio(){
+	var messaggio = document.inviamessaggio.descrizione.value;
+	if(messaggio.length > 512){
+		alert("Il messaggio non puo' avere più di 512 caratteri");
+		document.inviamessaggio.descrizione.focus();
+		return false;
+	}
+	if(messaggio.length < 1){
+		alert("Il messaggio non puo' essere vuoto");
+		document.inviamessaggio.descrizione.focus();
+		return false;
+	}
+   	document.inviamessaggio.action = "InviaMessaggio";
+   	document.inviamessaggio.submit();
+};
+
 function Control(){
 	var username = document.modulo.username.value;
 	var email1 = document.modulo.email.value;
@@ -44,12 +61,14 @@ function Control(){
 	}
 
 };
+
 function SearchBoxSwap(image){
 	var sf = document.getElementById('sb');
 	if (sf.value==="") {
 		sf.style.background = "url(./img/"+image+") no-repeat";
 	}
 };
+
 function ButtonSwap(image){
 	var sf = document.getElementById('search_btn');
 	if (sf.value==="") {
@@ -67,22 +86,25 @@ function ConfermaDomanda(){
 		document.faidomanda.titolo.focus();
 		return false;
 	}
+	
 	if(titolo.length < 7){
 		alert("La domanda contiene troppe poche lettere per avere senso.");
 		document.faidomanda.titolo.focus();
 		return false;
 	}
+	
 	if(titolo.substr(titolo.length-1) != "?"){
 		alert("Il titolo della domanda deve obbligatoriamente finire con un punto di domanda('?').");
 		document.faidomanda.titolo.focus();
 		return false;
 	}
+	
 	for(i=0;i<lunghezza;i++){
 		if(interessi[i].checked){
 			break;
 		}
-		
 	}
+	
 	if(titolo.length > 255){
 		alert("Il titolo della domanda non puo' avere piu' di 255 caratteri.");
 		document.faidomanda.titolo.focus();
@@ -106,7 +128,7 @@ function ConfermaDomanda(){
 		alert("Devi almeno scegliere un interesse tra quelli elencati.");
 		return false;
 	}
-	else {
+	else{
    		document.faidomanda.action = "Domanda";
    		document.faidomanda.submit();
 	}
@@ -144,10 +166,12 @@ function seguiinteressi(){
 		document.forminteresse.submit();
 	}
 };
+
 //Funzione che fa ritornare l'utente alla stessa pagina dando alla stessa l'informazione di ciò che ha cercato
 function cercaamicomessaggio(){
 	var testo = document.nomeamico.amico.value;
 	var searchValue = encodeURIComponent(testo);
+
 	window.location.href = "CercaAmicoMessaggio.jsp?search=" + searchValue;
 };
 function checkFile(){

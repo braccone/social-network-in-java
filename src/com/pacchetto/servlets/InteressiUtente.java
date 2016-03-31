@@ -32,7 +32,6 @@ public class InteressiUtente extends HttpServlet {
 		//String[] deselect = request.getParameterValues("deselect[]");
 		String user = (String) session.getAttribute("user");
 		int id=0;
-		///Probabilmente da eliminare
 		int lunghezza=select.length;
 		
 		PrintWriter stampa= response.getWriter();  //Non c'era
@@ -63,12 +62,14 @@ public class InteressiUtente extends HttpServlet {
 				
 
 				//Inserimento nel database degli elementi selezionati
-				for(int j=0;j<lunghezza;j++){ //c'era select.lenght al posto di lunghezza
+				for(int j=0;j<lunghezza;j++){
 						Interesse.Segui_interesse(id,Integer.parseInt(select[j]));
 					}
 				response.sendRedirect("Profilo.jsp"); //per il momento lo rimanda qui, dopo dovremmo cambiarlo
 				conn.close();
+
 			}else{
+
 				response.sendRedirect("Index.jsp");
 			}
 		}

@@ -92,9 +92,7 @@ public class Domanda extends HttpServlet {
 							rd.include(request, response);
 						}
 						ps.close();
-					}
-					
-					
+					}					
 				}
 		        conn.close();
 			}

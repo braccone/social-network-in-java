@@ -23,7 +23,7 @@
 						<input type="checkbox" name="interesse[]" value=<%=rs.getInt("id_interesse")%>> <label><%=rs.getString("nome") %></label><br>
 		  				<%
 		  					contatore++;}
-							rs.close();
+							//rs.close();
 		  				%>
 	  				</div>
 	  				<input type="button" name="btn_domanda" value="Conferma" onclick="ConfermaDomanda()">

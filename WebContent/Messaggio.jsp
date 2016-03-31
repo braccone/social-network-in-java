@@ -15,17 +15,19 @@
 		Connection conn= Connessione.getConnection();
 		rs = Messaggio.get_Messaggio(Integer.parseInt(id_messaggio),conn);
 		mittente = Messaggio.get_Mittente(Integer.parseInt(id_messaggio),conn);
+		Messaggio.leggi_Messaggio(Integer.parseInt(id_messaggio));
 		while(rs.next())
 		{
-			mittente.next(); //forse devo fare qualche controllo
+			if(mittente.next()){ //forse devo fare qualche controllo
 		%>
-			<div id="Domande"> <!-- in realtà è messaggio -->
+			<div id="Domande">
 				<div id="data">
 					Da: <%=mittente.getString("username")%>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=rs.getDate("data") %>
 				</div>
 				<h2><%=rs.getString("testo")%></h2>
 			</div>
 		<%
+			}
 		}
 		conn.close();
 		%>
@@ -36,7 +38,6 @@
 		<form method="post" action="Messaggia">
 			<textarea rows="7" cols="50" name="messaggia"></textarea><br>
 			<input type="submit" value="MESSAGGIA" name="btn_risposta">
-			<input type="hidden" name="prova" value="0"> <!-- su value ci andrà qualcosa -->
 		</form>
 		</div>
 	</div>
