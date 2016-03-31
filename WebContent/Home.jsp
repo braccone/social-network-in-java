@@ -1,45 +1,30 @@
+<%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 	<%@page import="java.sql.ResultSet" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
-	<%
-		//allow access only if session exists
-		/*String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-				if(utente != user){
-					response.sendRedirect("Index.jsp");
-				}
-			}
-		}*/
-	%>
 	<div class="DomandaTutto">
 		<div class="DomandePoste">
 			<h1>Domande</h1>
 			<%
-			ResultSet rs;
 			/*rs = Utente.getUtente(user);
 			int id_domandante = 0;
 			while(rs.next()){
 				id_domandante = rs.getInt("id");
 			}
 			rs.close();*/
-			
+			Connection conn=Connessione.getConnection();
 			//Non c'era prima, ritorna l'id dell'utente
-			ResultSet rs_utente = Utente.getUtente(user);
+			ResultSet rs_utente = Utente.getUtente(user,conn);
 			if(rs_utente.next()){
 			int id_utente = rs_utente.getInt("id");
 			////////////////////////////////////////
 			
 			//rs = DomandaUtente.getTutto(); //c'era questa che mostrava tutte le domande
 			//ora invece deve mostrare solo le domande che interessano all'utente
-			rs=DomandaUtente.getDomandeInteresseP(id_utente);
+			ResultSet rs=DomandaUtente.getDomandeInteresseP(id_utente,conn);
 			while(rs.next()){
 			%>
 			
@@ -70,7 +55,9 @@
 			<!-- pubblicato il <%=rs.getDate("data") %> alle <%=rs.getTime("ora") %>  -->
 			</div>
 			<%
-			}}
+			}rs.close();}
+			rs_utente.close();
+			conn.close();
 			%>
 		</div>
 	</div>

@@ -1,27 +1,13 @@
+<%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 	<%@page import="java.sql.ResultSet" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
 	<%@page import="com.pacchetto.servlets.InteressiUtente" %>
 	<%@page import="com.pacchetto.servlets.Messaggio" %>
 	<%@page import="com.pacchetto.servlets.Utente" %>
-	<%
-		//allow access only if session exists
-		/*String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-				if(utente != user){
-					response.sendRedirect("Index.jsp");
-				}
-			}
-		}*/
-	%>
 	<!--  
 	<div class="SceltaHomeMessaggi">
 		<a href="InviaMessaggio.jsp">Invia un messaggio</a>
@@ -38,12 +24,13 @@
 		int id_messaggio;
 		String nomeutente;
 		String testo;
-		rs=Utente.getUtente(user);
+		Connection conn = Connessione.getConnection();
+		rs=Utente.getUtente(user,conn);
 		//Inserimento dell'id utente nella variabile apposita
 		//Dovrei fare dei controlli e vedere se non è null
 		rs.next();
 		int id=rs.getInt("id");
-		rs=Messaggio.get_MessaggiRicevuti(id);
+		rs=Messaggio.get_MessaggiRicevuti(id,conn);
 		while(rs.next())
 		{
 		%>
@@ -60,7 +47,7 @@
 				%>
 				<h2><a href="Messaggio.jsp?id=<%=id_messaggio%>"><%=testo%></a></h2>
 				<%
-					rsutente=Messaggio.get_Mittente(id_messaggio);
+					rsutente=Messaggio.get_Mittente(id_messaggio,conn);
 					rsutente.next(); //forse ce devo mette un controllo
 					nomeutente=rsutente.getString("username");
 				%>
@@ -68,6 +55,7 @@
 			</div>
 		<%
 		}
+		conn.close();
 		%>
 	</div>
 <%@include file="./include/Footer.jsp" %>

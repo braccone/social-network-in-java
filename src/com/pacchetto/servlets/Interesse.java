@@ -26,10 +26,8 @@ public class Interesse {
 	static String delete_all_interessixutente="DELETE FROM interesse_utenti WHERE id_persona=?";
 	
 	//Ritorna tutti gli interessi esistenti
-	public static ResultSet getInteressi() throws SQLException{
-		Connection conn= null;
+	public static ResultSet getInteressi(Connection conn) throws SQLException{
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_interessi);
 
 	        ResultSet rs = ps.executeQuery();
@@ -63,6 +61,9 @@ public class Interesse {
 			e.printStackTrace();
 			return false;
 		}
+		finally{
+			conn.close();
+		}
 	}
 
 	//Ritorna true se l'interesse è seguito dall'utente altrimenti ritorna false
@@ -80,6 +81,9 @@ public class Interesse {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+		}
+		finally{
+			conn.close();
 		}
 		return false;
 	}
@@ -101,6 +105,9 @@ public class Interesse {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		finally{
+			conn.close();
+		}
 		return false;
 	}
 	
@@ -118,6 +125,9 @@ public class Interesse {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		finally{
+			conn.close();
+		}
 		return false;
 	}
 	
@@ -133,6 +143,9 @@ public class Interesse {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+		}
+		finally{
+			conn.close();
 		}
 		return false;
 	}

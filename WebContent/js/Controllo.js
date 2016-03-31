@@ -43,19 +43,19 @@ function Control(){
    		document.modulo.submit();
 	}
 
-}
+};
 function SearchBoxSwap(image){
 	var sf = document.getElementById('sb');
-		if (sf.value==="") {
-				sf.style.background = "url(./img/"+image+") no-repeat";
-			}
-		}
+	if (sf.value==="") {
+		sf.style.background = "url(./img/"+image+") no-repeat";
+	}
+};
 function ButtonSwap(image){
 	var sf = document.getElementById('search_btn');
-		if (sf.value==="") {
-				sf.src = "./img/"+image;
-			}
-		}
+	if (sf.value==="") {
+		sf.src = "./img/"+image;
+	}
+};
 function ConfermaDomanda(){
 	var titolo = document.faidomanda.titolo.value;
 	var domanda = document.faidomanda.descrizione.value;
@@ -110,11 +110,11 @@ function ConfermaDomanda(){
    		document.faidomanda.action = "Domanda";
    		document.faidomanda.submit();
 	}
-}
-
+};
 
 //Funzione per l'inserimento degli interessi nel database
 function seguiinteressi(){
+	alert("la chiama!!");
 	var interessi = document.getElementsByName("interesse[]");
 	var lunghezza = document.getElementsByName("interesse[]").length;
 	var i=0;
@@ -125,7 +125,6 @@ function seguiinteressi(){
 			break;
 		}
 	}
-	
 	if(i==lunghezza){
 		alert("Devi almeno scegliere un interesse tra quelli elencati.");
 		return false;
@@ -133,24 +132,35 @@ function seguiinteressi(){
 	else
 	{
 		var j=0;
-		
-		while(j<lunghezza){ //era document.getElementsByName("interesse[]").lenght
-			if(interessi[0].checked){  //tutti gli 0 erano j e dovrebbero continuare ad essere j
-				interessi[0].name="select[]";
-				//c'era continue;
-			}else{
-				interessi[0].name="deselect[]"; //non c'era e non ci dovrebbe essere però pare che come lu levo non funziona più cosa
+		while(j<document.getElementsByName("interesse[]").length){
+			if(interessi[j].checked){
+				interessi[j].name="select[]";
+				continue;
 			}
 			j++;
+			
 		}
 		document.forminteresse.action = "InteressiUtente";
 		document.forminteresse.submit();
 	}
-}
-
+};
 //Funzione che fa ritornare l'utente alla stessa pagina dando alla stessa l'informazione di ciò che ha cercato
 function cercaamicomessaggio(){
 	var testo = document.nomeamico.amico.value;
 	var searchValue = encodeURIComponent(testo);
-	window.location.href = 'CercaAmicoMessaggio.jsp?search=' + searchValue;
-}
+	window.location.href = "CercaAmicoMessaggio.jsp?search=" + searchValue;
+};
+function checkFile(){
+	if( document.getElementById("file").files.length == 0 ){
+	    alert("Devi selezionare un file prima di procedere con il caricamento.");
+	}
+	else{
+		document.uploadForm.submit();
+	}
+};
+function clickInvio(e){
+	if(e.keyCode==13){
+		cercaamicomessaggio();
+		return false;
+	}
+};

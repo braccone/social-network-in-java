@@ -43,9 +43,9 @@ public class Messaggio {
 	
 	//Metodo che invia il messaggio all'utente selezionato
 	public static void invia_Messaggio(int id_mittente, int id_ricevente, String messaggio, String data) throws SQLException{
-		Connection conn= null;
+		Connection conn = null;
 		try{
-			conn= Connessione.getConnection();
+			conn = Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(invia_messaggio);
 			ps.setInt(1, id_mittente);
 			ps.setInt(2, id_ricevente);
@@ -55,6 +55,9 @@ public class Messaggio {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+		}
+		finally{
+			conn.close();
 		}
 	}
 	
@@ -67,13 +70,18 @@ public class Messaggio {
 			ps.setInt(1, id_messaggio);
 	        ResultSet rs=ps.executeQuery();
 	        if(rs.next()){
+	        	conn.close();
 	        	return true;
 	        }
+	        conn.close();
 	        return false;
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			return false;
+		}
+		finally{
+			conn.close();
 		}
 	}
 	
@@ -85,9 +93,13 @@ public class Messaggio {
 			java.sql.PreparedStatement ps=conn.prepareStatement(leggi_messaggio);
 			ps.setInt(1, id_messaggio);
 	        ps.executeUpdate();
+	        
 		}
 		catch(Exception e){
 			e.printStackTrace();
+		}
+		finally{
+			conn.close();
 		}
 	}
 	
@@ -109,6 +121,9 @@ public class Messaggio {
 			e.printStackTrace();
 			return false;
 		}
+		finally{
+			conn.close();
+		}
 	}
 	
 	//Metodo che Considera Letti tutti i messaggi ricevuti dall'utente.
@@ -123,13 +138,14 @@ public class Messaggio {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		finally{
+			conn.close();
+		}
 	}
 	
 	//Metodo che ritorna tutti i messaggi che l'utente ha ricevuto
-	public static ResultSet get_MessaggiRicevuti(int id_destinatario) throws SQLException{
-		Connection conn= null;
+	public static ResultSet get_MessaggiRicevuti(int id_destinatario,Connection conn) throws SQLException{
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_messaggiricevuti);
 			ps.setInt(1, id_destinatario);
 			ResultSet rs=ps.executeQuery();
@@ -142,10 +158,8 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna tutti i messaggi inviati dall'utente
-	public static ResultSet get_MessaggiInviati(int id_mittente) throws SQLException{
-		Connection conn= null;
+	public static ResultSet get_MessaggiInviati(int id_mittente,Connection conn) throws SQLException{
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_messaggiinviati);
 			ps.setInt(1, id_mittente);
 			ResultSet rs=ps.executeQuery();
@@ -158,10 +172,8 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna tutti i messaggi che si sono scambiati due utenti
-	public static ResultSet get_Discussione(int id_utente1,int id_utente2) throws SQLException{
-		Connection conn= null;
+	public static ResultSet get_Discussione(int id_utente1,int id_utente2,Connection conn) throws SQLException{
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_discussione);
 			ps.setInt(1, id_utente1);
 			ps.setInt(2, id_utente2);
@@ -177,10 +189,8 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna il mittente di un determinato messaggio
-	public static ResultSet get_Mittente(int id_messaggio) throws SQLException{
-		Connection conn= null;
+	public static ResultSet get_Mittente(int id_messaggio,Connection conn) throws SQLException{
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_mittente);
 			ps.setInt(1, id_messaggio);
 			ResultSet rs=ps.executeQuery();
@@ -193,10 +203,8 @@ public class Messaggio {
 	}
 	
 	//Metodo che ritorna un messsaggio dato l'id dello stesso
-	public static ResultSet get_Messaggio(int id_messaggio) throws SQLException{
-		Connection conn= null;
+	public static ResultSet get_Messaggio(int id_messaggio,Connection conn) throws SQLException{
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_messaggio);
 			ps.setInt(1, id_messaggio);
 			ResultSet rs=ps.executeQuery();

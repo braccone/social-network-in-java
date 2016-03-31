@@ -20,9 +20,8 @@ public class RisposteUtente {
 	//Query che ritorna i dati dell'utente che ha risposto ad una domanda
 	static String get_utente="SELECT ut.* FROM utenti as ut,risposta as ri WHERE ut.id = ri.id_rispondente and ri.id_rispondente=?";
 	//metodi
-	public static ResultSet getRisposteUtente(int id_domandante){
+	public static ResultSet getRisposteUtente(int id_domandante,Connection conn){
 		try {
-			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_risposte);
 			ps.setInt(1, id_domandante);
 			ResultSet rs = ps.executeQuery();
@@ -35,9 +34,8 @@ public class RisposteUtente {
 			}
 	}
 	
-	public static ResultSet getRisposteDomande(String id_domanda){
+	public static ResultSet getRisposteDomande(String id_domanda,Connection conn){
 		try {
-			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_rispostedomanda);
 			ps.setString(1, id_domanda);
 			ResultSet rs = ps.executeQuery();
@@ -50,9 +48,10 @@ public class RisposteUtente {
 			}
 	}
 	
-	public static int insertRisposta(String id_domanda,int id_utente,String testo,String data,String ora){
+	public static int insertRisposta(String id_domanda,int id_utente,String testo,String data,String ora) throws SQLException{
+		Connection conn=null;
 		try {
-			Connection conn= Connessione.getConnection();
+			conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(insert_risposta);
 			ps.setString(1, id_domanda);
 			ps.setInt(2, id_utente);
@@ -67,12 +66,13 @@ public class RisposteUtente {
 				e.printStackTrace();
 				return 0;
 			}
+		finally{
+			conn.close();
+		}
 	}
 	
-	public static ResultSet getUtente(int id_utente){
-		Connection conn;
+	public static ResultSet getUtente(int id_utente,Connection conn){
 		try {
-			conn = Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_utente);
 			ps.setInt(1, id_utente);
 			ResultSet rs=ps.executeQuery();

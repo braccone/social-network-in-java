@@ -38,10 +38,10 @@ public class Utente {
 	static String cerca_amici="SELECT ut.* FROM utenti AS ut, amico as am WHERE (((ut.id=am.id_richiedente AND am.id_ricevente=?) OR (ut.id=am.id_ricevente AND am.id_richiedente=?)) AND accettato=true) AND ut.username LIKE ?";
 
 	//Metodo che ritorna tutti i dati dell'utente una volta datogli il nome
-	public static ResultSet getUtente(String nomeutente) throws SQLException{
-		Connection conn= null;
+	public static ResultSet getUtente(String nomeutente,Connection conn) throws SQLException{
+		//Connection conn= null;
 		try{
-			conn= Connessione.getConnection();
+			//conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_utente);
 			ps.setString(1, nomeutente);
 	        ResultSet rs = ps.executeQuery();
@@ -76,13 +76,14 @@ public class Utente {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		finally{
+			conn.close();
+		}
 		return 0;
 	}
 	//Metodo che ritorna gli Amici dell'utente
-	public static ResultSet getAmici(int id_utente){
-		Connection conn= null;
+	public static ResultSet getAmici(int id_utente,Connection conn){
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_amici);
 			ps.setInt(1, id_utente);
 			ps.setInt(2, id_utente);
@@ -96,10 +97,8 @@ public class Utente {
 		return null;
 	}
 	//Metodo che ritorna un result set contenente l'insieme delle richieste di amicizia inoltrate all'utente
-	public static ResultSet getFriendReq(int id_utente){
-		Connection conn= null;
+	public static ResultSet getFriendReq(int id_utente,Connection conn){
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_pendingrequests);
 			ps.setInt(1, id_utente);
 	        ResultSet rs = ps.executeQuery();
@@ -113,10 +112,8 @@ public class Utente {
 	
 	//Ritorna un result set con l'insieme degli utenti ai quali sono state inviate
 	//richieste di amicizia da parte dell'utente
-	public static ResultSet getRichieste(int id_utente){
-		Connection conn= null;
+	public static ResultSet getRichieste(int id_utente,Connection conn){
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(get_richiesta);
 			ps.setInt(1, id_utente);
 	        ResultSet rs = ps.executeQuery();
@@ -145,6 +142,9 @@ public class Utente {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		finally{
+			conn.close();
+		}
 		return 0;
 	}
 
@@ -163,14 +163,15 @@ public class Utente {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		finally{
+			conn.close();
+		}
 		return 0;
 	}
 
 	//Metodo che ritorna tutti gli amici di un utente che hanno nome simile a quello datogli in input
-	public static ResultSet cercaAmici(int id_utente,String nomeamico) throws SQLException{
-		Connection conn= null;
+	public static ResultSet cercaAmici(int id_utente,String nomeamico,Connection conn) throws SQLException{
 		try{
-			conn= Connessione.getConnection();
 			java.sql.PreparedStatement ps=conn.prepareStatement(cerca_amici);
 			ps.setInt(1, id_utente);
 			ps.setInt(2, id_utente);

@@ -1,31 +1,18 @@
+<%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 	<%@page import="java.sql.ResultSet" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
-	<%
-		//allow access only if session exists
-		/*String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-				if(utente != user){
-					response.sendRedirect("Index.jsp");
-				}
-			}
-		}*/
-	%>
 	<div class="DomandaTutto">
 
 		<div class="DomandeTrovate">
 			<h1>Domande Trovate</h1>
 			<%
 			String title=request.getParameter("titolo"); 
-			ResultSet rs = DomandaUtente.getDomandeStringa(title);
+			Connection conn = Connessione.getConnection();
+			ResultSet rs = DomandaUtente.getDomandeStringa(title,conn);
 			while(rs.next())
 			{
 			%>
@@ -58,6 +45,7 @@
 			</div>
 			<%
 			}
+			conn.close();
 			%>
 		</div>
 	</div>

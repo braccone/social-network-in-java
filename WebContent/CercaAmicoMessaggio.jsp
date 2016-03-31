@@ -1,32 +1,19 @@
+<%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="java.sql.ResultSet" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
-	<%
-		//allow access only if session exists
-		/*String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-				if(utente != user){
-					response.sendRedirect("Index.jsp");
-				}
-			}
-		}*/
-	%>
+
 <div class="DomandaTutto"> <!-- forse non dovrebbe essere DomandaTutto né Domanda sotto -->
 	<div class="Domanda">
 	<h1>Cerca un amico</h1>
 	<form name="nomeamico" method="post">
 		<div id="titolo">
-				<input type="text" placeholder="Inserisci il nome di un tuo amico" name="amico"><br>
+			<input type="text" placeholder="Inserisci il nome di un tuo amico" name="amico" onkeypress="return clickInvio(event)" ><br>
 		</div>
-		<input type="button" name="btn_cerca" value="Cerca" onClick="cercaamicomessaggio()">
+		<input type="button" name="btn_cerca" value="Cerca" onClick="cercaamicomessaggio()" id="btn_cerca">
 	</form>
 	</div>
 	<%
@@ -40,13 +27,14 @@
 			<h1> Amici trovati </h1>
 			<%
 			int id_utente=0;
-			ResultSet rs = Utente.getUtente(user);
+			Connection conn = Connessione.getConnection();
+			ResultSet rs = Utente.getUtente(user,conn);
 			while(rs.next())
 			{
 				id_utente = rs.getInt("id");
 			}
 			rs.close();
-			ResultSet amici=Utente.cercaAmici(id_utente,nomeamico);
+			ResultSet amici=Utente.cercaAmici(id_utente,nomeamico,conn);
 			//Il resto viene stampato solo se il result set non è null
 			if(amici != null)
 			{
@@ -64,7 +52,9 @@
 			%>
 	</div>
 	<%
+		conn.close();
 	}
+	
 	%>
 </div>
 <%@include file="./include/Footer.jsp" %>

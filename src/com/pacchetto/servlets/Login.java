@@ -77,6 +77,7 @@ public class Login extends HttpServlet {
 								    "window.location.href = 'Index.jsp';"+ "</script>");
 						rd.include(request, response);
 			        	}
+					conn.close();
 				}
 				catch(Exception e){
 					e.printStackTrace();

@@ -1,31 +1,18 @@
+<%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 	<%@page import="java.sql.ResultSet" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
 	<%@page import="com.pacchetto.servlets.InteressiUtente" %>
-	<%
-		//allow access only if session exists
-		/*String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-				if(utente != user){
-					response.sendRedirect("Index.jsp");
-				}
-			}
-		}*/
-	%>
 
 		<div class="DomandePoste">
 			<h1>Interessi</h1>
 			<%
 			ResultSet rs;
-			rs = Utente.getUtente(user);
+			Connection conn = Connessione.getConnection();
+			rs = Utente.getUtente(user,conn);
 			int id_utente = 0;
 			while(rs.next()){
 				id_utente = rs.getInt("id");
@@ -33,7 +20,7 @@
 			rs.close();
 			
 			//devo prendere tutti gli interessi ed inserirli nel resultset
-			rs = Interesse.getInteressi();
+			rs = Interesse.getInteressi(conn);
 			//ciclo while che stampa tutti gli interessi
 			%>
 			<form name="forminteresse" method="post">
@@ -65,6 +52,7 @@
 			</div>
 			<%
 			}
+			conn.close();
 			%>
 			<input type="button" name="inserisci" value="inserisciinteressi" onClick="seguiinteressi()"/>
 			</form>

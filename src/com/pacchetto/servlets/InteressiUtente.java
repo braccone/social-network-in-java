@@ -42,8 +42,9 @@ public class InteressiUtente extends HttpServlet {
 						
 			if(user!=null){
 				//Seleziono l'id dell'utente
+				conn = Connessione.getConnection();
 				ResultSet rs;
-	        	rs = Utente.getUtente(user);
+	        	rs = Utente.getUtente(user,conn);
 				rs.next();
 				id=rs.getInt("id");
 				rs.close();
@@ -65,7 +66,8 @@ public class InteressiUtente extends HttpServlet {
 				for(int j=0;j<lunghezza;j++){ //c'era select.lenght al posto di lunghezza
 						Interesse.Segui_interesse(id,Integer.parseInt(select[j]));
 					}
-				response.sendRedirect("Interessi.jsp"); //per il momento lo rimanda qui, dopo dovremmo cambiarlo
+				response.sendRedirect("Profilo.jsp"); //per il momento lo rimanda qui, dopo dovremmo cambiarlo
+				conn.close();
 			}else{
 				response.sendRedirect("Index.jsp");
 			}

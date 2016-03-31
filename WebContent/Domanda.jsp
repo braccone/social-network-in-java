@@ -1,24 +1,10 @@
+<%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="java.sql.ResultSet" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
-	<%
-		//allow access only if session exists
-		/*String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-				if(utente != user){
-					response.sendRedirect("Index.jsp");
-				}
-			}
-		}*/
-	%>
 	<div class="DomandaTutto">
 		<div class="Domanda">
 		<h1>Fai una domanda</h1>
@@ -29,7 +15,8 @@
 					<div id="interessi" contenteditable="false">
 						<% 
 							int contatore=1;
-							ResultSet rs = Interesse.getInteressi();
+							Connection conn = Connessione.getConnection();
+							ResultSet rs = Interesse.getInteressi(conn);
 							while(rs.next())
 							{
 						%>
@@ -47,13 +34,13 @@
 		<div class="DomandePoste">
 			<h1>Le tue domande</h1>
 			<%
-			rs = Utente.getUtente(user);
+			rs = Utente.getUtente(user,conn);
 			int id_domandante = 0;
 			while(rs.next()){
 				id_domandante = rs.getInt("id");
 			}
 			rs.close();
-			rs = DomandaUtente.getDomande(id_domandante);
+			rs = DomandaUtente.getDomande(id_domandante,conn);
 			while(rs.next()){
 			%>
 			
@@ -85,6 +72,7 @@
 			</div>
 			<%
 			}
+			conn.close();
 			%>
 		</div>
 	</div>

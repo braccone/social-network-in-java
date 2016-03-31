@@ -2,6 +2,7 @@ package com.pacchetto.servlets;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 
@@ -36,9 +37,8 @@ public class DomandaUtente {
 	 
 	//ritorna tutte le domande ed i loro rispettivi creatori
 
-	public static ResultSet getTutto(){
+	public static ResultSet getTutto(Connection conn){
 		try {
-			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_tutto);
 			ResultSet rs = ps.executeQuery();
 			return rs;
@@ -51,9 +51,8 @@ public class DomandaUtente {
 	}
 	
 	//Ritorna l'insieme delle domande dato l'id domandante
-	public static ResultSet getDomande(int id_domandante){
+	public static ResultSet getDomande(int id_domandante,Connection conn){
 		try {
-			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_domande);
 			ps.setInt(1, id_domandante);
 			ResultSet rs = ps.executeQuery();
@@ -66,9 +65,8 @@ public class DomandaUtente {
 			}
 	}
 	//Ritorna il la domanda che ha come id quello datogli
-	public static ResultSet getDomanda(String id_domanda){
+	public static ResultSet getDomanda(String id_domanda,Connection conn){
 		try {
-			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_domanda);
 			ps.setString(1, id_domanda);
 			ResultSet rs = ps.executeQuery();
@@ -82,9 +80,8 @@ public class DomandaUtente {
 	}
 	
 	//Ritorna l'id di una domanda datogli il titolo
-	public static ResultSet getIdDomanda(String titolo){
+	public static ResultSet getIdDomanda(String titolo,Connection conn){
 		try {
-			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_iddomanda);
 			ps.setString(1, titolo);
 			ResultSet rs = ps.executeQuery();
@@ -98,9 +95,8 @@ public class DomandaUtente {
 	}
 		
 	//Ritorna le domande che possono interessare all'utente
-	public static ResultSet getDomandeInteresseP(int id_domandante){
+	public static ResultSet getDomandeInteresseP(int id_domandante,Connection conn){
 		try {
-				Connection conn= Connessione.getConnection();
 				PreparedStatement ps = conn.prepareStatement(get_domandeInteressiP);
 				ps.setInt(1, id_domandante);
 				ResultSet rs = ps.executeQuery();
@@ -113,9 +109,8 @@ public class DomandaUtente {
 			}
 		}
 	//Ritorna tutte le domande che hanno come interesse quello che ha il nome dato come argomento
-	public static ResultSet getDomandeInteresse(String nome){
+	public static ResultSet getDomandeInteresse(String nome,Connection conn){
 		try {
-				Connection conn= Connessione.getConnection();
 				PreparedStatement ps = conn.prepareStatement(get_domandeInteresse);
 				ps.setString(1, nome);
 				ResultSet rs = ps.executeQuery();
@@ -128,9 +123,10 @@ public class DomandaUtente {
 			}
 	}
 	//Inserisce una determinata domanda nel database
-	public static void insertDomande(int id_domandante,String titolo,String descrizione,String data,String ora ){
+	public static void insertDomande(int id_domandante,String titolo,String descrizione,String data,String ora ) throws SQLException{
+		Connection conn=null;
 		try {
-			Connection conn= Connessione.getConnection();
+			conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(insert_domanda);
 			ps.setInt(1, id_domandante);
 			ps.setString(2, titolo);
@@ -145,12 +141,14 @@ public class DomandaUtente {
 			
 			e.printStackTrace();
 		}
+		finally{
+			conn.close();
+		}
 	}
 		
 	//prende le domande che hanno nel loro titolo la stringa data
-	public static ResultSet getDomandeStringa(String titolo){
+	public static ResultSet getDomandeStringa(String titolo,Connection conn){
 		try {
-			Connection conn= Connessione.getConnection();
 			PreparedStatement ps = conn.prepareStatement(get_domandastringa);
 			ps.setString(1,"%"+ titolo + "%");
 			ResultSet rs = ps.executeQuery();
