@@ -44,7 +44,6 @@
 			}
 			rs_interesse.close();}
 		rs_utente.close();
-		conn.close();
 			%>
 			<input type="button" onclick="location.href='Interessi.jsp';" value="Modifica Interessi" />
 		</form> <!-- non c'era -->
@@ -61,11 +60,15 @@
 			{
 			%>
 				<div id="Domande">
-				<h2><a href="ProfiloEsterno.jsp?id=<%=rs.getInt("id")%>"><%=rs.getString("ut.username")%></a></h2>
+					<h2><a href="ProfiloEsterno.jsp?id=<%=rs.getInt("id")%>">
+						<img alt="non funziona" height="100" width="100" src=<%=rs.getString("immagine")%> />
+						<%=rs.getString("ut.username")%>
+					</a></h2>
 				</div>
 			<%
 			}
 		}
+		conn.close();
 		%>
 	</div>
 

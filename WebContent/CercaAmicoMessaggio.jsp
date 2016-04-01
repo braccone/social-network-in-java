@@ -42,7 +42,10 @@
 				{
 				%>
 				<div id="Domande"> <!-- non dovrebbe essere Domande ma qualcosa come "utenti", per il momento è così per questioni pratiche -->
-					<h2><a href="InviaMessaggio.jsp?id=<%=amici.getInt("id")%>"><%=amici.getString("username")%></a></h2>
+					<h2><a href="InviaMessaggio.jsp?id=<%=amici.getInt("id")%>">
+						<img alt="non funziona" height="100" width="100" src=<%=amici.getString("immagine") %>>
+						<%=amici.getString("username")%>
+					</a></h2>
 				</div>
 				<%
 				}

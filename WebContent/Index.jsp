@@ -17,7 +17,7 @@
 		<tr>
 			<td width="60%" valign="top">
 				<h2>Join LikeQuora!</h2>
-				<form action="Login" method="POST">
+				<form action="Login" method="POST" name="LoginForm">
 					<input type="text" name="user_login" size="25" placeholder="Username"/><br/><br/>
 					<input type="password" name="password_login" size="25" placeholder="Password"/><br /><br/>
 					<input type="submit" name="login" value="Login" />
