@@ -61,7 +61,7 @@
 			%>
 				<div id="Domande">
 					<h2><a href="ProfiloEsterno.jsp?id=<%=rs.getInt("id")%>">
-						<img alt="non funziona" height="100" width="100" src=<%=rs.getString("immagine")%> />
+						<img alt="non funziona" height="50" width="50" src=<%=rs.getString("immagine")%> />
 						<%=rs.getString("ut.username")%>
 					</a></h2>
 				</div>

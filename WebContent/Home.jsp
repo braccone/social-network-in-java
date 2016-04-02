@@ -32,14 +32,17 @@
 						<%//Prendo il domandante
 						domandante=DomandaUtente.getDomandante(rs.getInt("id_domanda"),conn);
 						String username_domandante="";
+						String immagine="";
 						if(domandante != null){
 							if(domandante.next()){
 								//prendo il nome utente del domandante
 								username_domandante=domandante.getString("username");
+								immagine=domandante.getString("ut.immagine");
 								domandante.close();
 							}
 						}
 						%>
+							<img alt="non funziona" height="50" width="50" src=<%=immagine %>>
 							<%=username_domandante%> &nbsp;&nbsp;&nbsp;&nbsp; <%=rs.getDate("data") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ora:&nbsp;<%=rs.getTime("ora") %>
 						</div>
 						<h2><a href="Risposta.jsp?id=<%=rs.getInt("id_domanda")%>"><%=rs.getString("titolo")%></a></h2>
