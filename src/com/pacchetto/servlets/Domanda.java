@@ -54,7 +54,7 @@ public class Domanda extends HttpServlet {
 				conn = Connessione.getConnection();
 				
 				//SELECT per vedere se il titolo è univoco
-				ResultSet rs = DomandaUtente.getIdDomanda(titolo);
+				ResultSet rs = DomandaUtente.getIdDomanda(titolo,conn);
 				int max_titolo= rs.last() ? rs.getRow() : 0;
 				stampa.println("<script>alert('"+rs.last()+"');window.location.href = 'Domanda.jsp';"+"</script>");
 				rs.close();
@@ -66,7 +66,7 @@ public class Domanda extends HttpServlet {
 		        }
 		        else{
 			        //SELECT dell'id dell'utente loggato
-		        	rs = Utente.getUtente(user);
+		        	rs = Utente.getUtente(user,conn);
 					int id=0;
 					while(rs.next()){
 						id=rs.getInt("id");
@@ -75,7 +75,7 @@ public class Domanda extends HttpServlet {
 					//INSERT dei dati nella tabella domanda con id_domandante = id dell'utente loggato
 					DomandaUtente.insertDomande(id, titolo, descrizione, data, ora);
 					//Prende l'id della domanda inserita
-					rs=DomandaUtente.getIdDomanda(titolo);
+					rs=DomandaUtente.getIdDomanda(titolo,conn);
 					int id_domanda=0;
 					int k=0;
 					while(rs.next()){
@@ -92,10 +92,9 @@ public class Domanda extends HttpServlet {
 							rd.include(request, response);
 						}
 						ps.close();
-					}
-					
-					
+					}					
 				}
+		        conn.close();
 			}
 			else{
 				response.sendRedirect("Index.jsp");

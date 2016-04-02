@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.jdbc.Connection;
+
 /**
  * Servlet implementation class Risposta
  */
@@ -45,7 +47,8 @@ public class Risposta extends HttpServlet {
         	
         	RequestDispatcher rd = getServletContext().getRequestDispatcher("/Risposta.jsp?id="+id_domanda);
         	if(user!=null ){
-        		ResultSet rs = Utente.getUtente(user);
+        		Connection conn=Connessione.getConnection();
+        		ResultSet rs = Utente.getUtente(user,conn);
         		int id_utente=0;
         		while(rs.next()){
         		id_utente = rs.getInt("id");
@@ -56,6 +59,7 @@ public class Risposta extends HttpServlet {
 					stampa.println("<script>alert('Risposta Inserita nel database');window.location.href = 'Risposta.jsp?id="+id_domanda+"';"+"</script>");
 					rd.include(request, response);
 				}
+        		response.sendRedirect("Risposta.jsp?id="+id_domanda);
         	}
         	else{
         		response.sendRedirect("Risposta.jsp?id="+id_domanda);

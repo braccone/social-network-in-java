@@ -1,30 +1,18 @@
+<%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
 	<%@page import="java.sql.ResultSet" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="com.pacchetto.servlets.RisposteUtente" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
-	<%
-		//allow access only if session exists
-		String utente = request.getParameter("u");
-		String user = null;
-		if(session.getAttribute("user") == null){
-			response.sendRedirect("Index.jsp");
-		}
-		else{ 
-			user = (String) session.getAttribute("user");
-			if(utente != null){
-				if(utente != user){
-					response.sendRedirect("Index.jsp");
-				}
-			}
-		}
-	%>
+
 	<div class="DomandePoste">
 		<h1 style="color: blue;font-size: 22px;">La tua domanda</h1>
 		<%
 		ResultSet rs;
+		Connection conn = Connessione.getConnection();
 		String id_domanda = request.getParameter("id");
-		rs = DomandaUtente.getDomanda(id_domanda);
+		rs = DomandaUtente.getDomanda(id_domanda,conn);
 		while(rs.next()){
 		%>
 		
@@ -58,14 +46,24 @@
 	<div class="Risposte">
 		
 		<%
-			
-			rs = RisposteUtente.getRisposteDomande(id_domanda);
+			ResultSet rs_utente;
+			rs = RisposteUtente.getRisposteDomande(id_domanda,conn);
 			while(rs.next()){
 		%>
 		<div id="risposta">
+			<%
+				rs_utente=RisposteUtente.getUtente(rs.getInt("id_rispondente"),conn);
+				rs_utente.next();	
+			%>
+			<%=rs_utente.getString("username") %>
+			<% rs_utente.close(); %>
 			<p><%=rs.getString("testo") %></p>
 		</div>
-		<%} %>
+		<%
+			}
+			rs.close();
+			conn.close();
+		%>
 	
 		<div id="FaiRisposta">
 		<form method="post" action="Risposta">

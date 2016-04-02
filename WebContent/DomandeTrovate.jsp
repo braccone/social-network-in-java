@@ -1,47 +1,20 @@
 <%@page import="com.pacchetto.servlets.Connessione"%>
 <%@page import="com.pacchetto.servlets.Utente"%>
 <%@include file="./include/Header.jsp" %>
-	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="java.sql.ResultSet" %>
+	<%@page import="com.mysql.jdbc.Connection" %>
 	<%@page import="com.pacchetto.servlets.Interesse" %>
 	<%@page import="com.pacchetto.servlets.DomandaUtente" %>
 	<div class="DomandaTutto">
-		<div class="Domanda">
-		<h1>Fai una domanda</h1>
-			<div id="titolo">
-				<form name="faidomanda" method="post">
-					<input type="text" placeholder="Inserisci il titolo" name="titolo"><br>
-					<textarea rows="9" cols="50" placeholder="Inserisci la domanda" name="descrizione"></textarea><br>
-					<div id="interessi" contenteditable="false">
-						<% 
-							int contatore=1;
-							Connection conn = Connessione.getConnection();
-							ResultSet rs = Interesse.getInteressi(conn);
-							while(rs.next())
-							{
-						%>
-						<input type="checkbox" name="interesse[]" value=<%=rs.getInt("id_interesse")%>> <label><%=rs.getString("nome") %></label><br>
-		  				<%
-		  					contatore++;}
-							//rs.close();
-		  				%>
-	  				</div>
-	  				<input type="button" name="btn_domanda" value="Conferma" onclick="ConfermaDomanda()">
-				</form>
-			</div>
-		</div>
-	
-		<div class="DomandePoste">
-			<h1>Le tue domande</h1>
+
+		<div class="DomandeTrovate">
+			<h1>Domande Trovate</h1>
 			<%
-			rs = Utente.getUtente(user,conn);
-			int id_domandante = 0;
-			while(rs.next()){
-				id_domandante = rs.getInt("id");
-			}
-			rs.close();
-			rs = DomandaUtente.getDomande(id_domandante,conn);
-			while(rs.next()){
+			String title=request.getParameter("titolo"); 
+			Connection conn = Connessione.getConnection();
+			ResultSet rs = DomandaUtente.getDomandeStringa(title,conn);
+			while(rs.next())
+			{
 			%>
 			
 			<div id="Domande">

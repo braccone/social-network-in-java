@@ -16,24 +16,43 @@
 		</noscript>
 	</head>
 	<body>
+	<%
+		//allow access only if session exists
+		String utente = request.getParameter("u");
+		String user = null;
+		if(session.getAttribute("user") == null){
+			response.sendRedirect("Index.jsp");
+		}
+		else{ 
+			user = (String) session.getAttribute("user");
+			if(utente != null){
+				if(utente != user){
+					response.sendRedirect("Index.jsp");
+				}
+			}
+		}
+	%>
 	<div class="tutto">
 		<div class="HeaderMenu">
 			<div id="menu">
 				<ul>
-			  		<li><a href="#">Home</a></li>
+			  		<li><a href="Home.jsp">Home</a></li>
 			  		<li><a href="Domanda.jsp">Fai una domanda</a></li>
-			  		<li><a href="#">Messaggi</a></li>
-			  		<li><a href="#">Amici</a></li>
-			  		<li><a href="Profilo.jsp">Profilo</a></li>
+			  		<li><a href="MainMessaggio.jsp">Messaggi</a></li>
+			  		<li><a href="Profilo.jsp"><%=user %></a></li>
+			  		<form id="logoutForm" action="Logout" method="post">
+			  			<li><a onclick="document.getElementById('logoutForm').submit();">Logout</a></li>
+			  		</form>
+			  		
 				</ul>
 			</div>
 			<div id="SearchContainer">
-				<form method="GET" action="#" id="SearchForm">
+				<form method="GET" action="DomandeTrovate.jsp" id="SearchForm"> <!-- c'era # -->
 					<div id="SearchBox">
-						<input type="text" name="query" id="sb" onfocus="SearchBoxSwap('BarraRicerca_focus.png')" onblur="SearchBoxSwap('BarraRicerca.png')" />
+						<input type="text" name="titolo" id="sb" onfocus="SearchBoxSwap('BarraRicerca_focus.png')" onblur="SearchBoxSwap('BarraRicerca.png')" /> <!-- il nome non era titolo ma query -->
 					</div>
 					<div id="SearchBtn">
-						<input type="image" src="./img/PulsanteRicerca.png" name="submit" id="search_btn" alt="Btn" onmouseover="ButtonSwap('PulsanteRicerca_hover.png')" onmouseout="ButtonSwap('PulsanteRicerca.png')" />
+						<input type="image" src="./img/PulsanteRicerca.png" name="submit" id="search_btn" alt="Btn" onmouseover="ButtonSwap('PulsanteRicerca_hover.png')" onmouseout="ButtonSwap('PulsanteRicerca.png')"/>
 					</div>
 				</form>
 			</div>

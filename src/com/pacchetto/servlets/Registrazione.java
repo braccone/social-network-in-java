@@ -55,7 +55,8 @@ public class Registrazione extends HttpServlet {
         
         try {
         	if((pass!="" || pass!=null || pass!="undefined") && (nickname != "" || nickname!=null || nickname != "undefined" ) && (email != "" || email != null || email!="undefined")){
-        		ResultSet rs = Utente.getUtente(nickname);
+        		conn = Connessione.getConnection();
+        		ResultSet rs = Utente.getUtente(nickname,conn);
 		        int max_users= rs.last() ? rs.getRow() : 0;
 		        rs.close();
 		        if(max_users != 0){
@@ -79,6 +80,7 @@ public class Registrazione extends HttpServlet {
 			        	}
 		        	
 		        }
+		        conn.close();
 	        }
         	else{
         		PrintWriter stampa= response.getWriter();
